@@ -31,6 +31,14 @@ Class {
 }
 
 { #category : #accessing }
+Counter class >> startingAt: anInteger [
+	"comment stating purpose of class-side method"
+	"scope: class-variables  &  class-instance-variables"	
+			
+	^ self new count: anInteger.
+]
+
+{ #category : #accessing }
 Counter >> count [
 	"Return count"
 	"scope: class-variables  &  instance-variables"	
@@ -53,4 +61,18 @@ Counter >> increment [
 			
 	count := count + 1.
 	^count 
+]
+
+{ #category : #initialization }
+Counter >> initialize [ 
+	"Set the initial value of the value to 0"
+	"scope: class-variables  &  instance-variables"	
+	count := 0
+]
+
+{ #category : #printing }
+Counter >> printOn: aStream [
+	super printOn: aStream .
+	aStream nextPutAll: ' with value: '.
+	count printOn: aStream.
 ]
