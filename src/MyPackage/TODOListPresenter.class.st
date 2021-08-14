@@ -1,3 +1,6 @@
+"
+UI spec for tasks represented by a collection of `TODOTask`
+"
 Class {
 	#name : #TODOListPresenter,
 	#superclass : #SpPresenter,
@@ -73,7 +76,7 @@ TODOListPresenter >> removeSelectedTask [
 	self updatePresenter
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 TODOListPresenter >> todoListContextMenu [
 
 	^ self newMenu

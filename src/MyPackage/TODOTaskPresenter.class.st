@@ -1,3 +1,6 @@
+"
+UI spec to showTODOTask instance itself
+"
 Class {
 	#name : #TODOTaskPresenter,
 	#superclass : #SpPresenter,

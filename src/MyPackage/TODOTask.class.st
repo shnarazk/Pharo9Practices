@@ -1,3 +1,6 @@
+"
+Task record by a label string
+"
 Class {
 	#name : #TODOTask,
 	#superclass : #Object,
