@@ -7,9 +7,28 @@ Class {
 	#category : #MyPackage
 }
 
+{ #category : #adding }
+TODOListPresenter >> addTask [
+
+	(TODOTaskPresenter newApplication: self application)
+		task: TODOTask new;
+		openModalWithSpec.
+	self updatePresenter
+]
+
+{ #category : #adding }
+TODOListPresenter >> editSelectedTask [
+
+	(TODOTaskPresenter newApplication: self application)
+		task: todoListPresenter selection selectedItem;
+		openModalWithSpec.
+	self updatePresenter
+]
+
 { #category : #initialization }
 TODOListPresenter >> initializePresenters [
 
+	| addButton |
 	todoListPresenter := self newTable
 		                     addColumn:
 			                     ((SpCheckBoxTableColumn evaluated: [ :task | 
@@ -22,10 +41,20 @@ TODOListPresenter >> initializePresenters [
 		                     (SpStringTableColumn
 			                      title: 'Title'
 			                      evaluated: [ :task | task title ]);
+		                     contextMenu: self todoListContextMenu;
 		                     yourself.
 
+	addButton := self newButton
+		             label: 'Add task';
+		             action: [ self addTask ];
+		             yourself.
 	self layout: (SpBoxLayout newVertical
+			 spacing: 5;
 			 add: todoListPresenter;
+			 add: (SpBoxLayout newHorizontal
+					  addLast: addButton expand: false;
+					  yourself)
+			 expand: false;
 			 yourself)
 ]
 
@@ -35,6 +64,27 @@ TODOListPresenter >> initializeWindow: aWindowPresenter [
 	aWindowPresenter 
 		title: 'TODO list';
 		initialExtent: 500@500
+]
+
+{ #category : #adding }
+TODOListPresenter >> removeSelectedTask [
+
+	todoListPresenter selection selectedItem remove.
+	self updatePresenter
+]
+
+{ #category : #'as yet unclassified' }
+TODOListPresenter >> todoListContextMenu [
+
+	^ self newMenu
+		  addItem: [ :item | 
+			  item
+				  name: 'Edit...';
+				  action: [ self editSelectedTask ] ];
+		  addItem: [ :item | 
+			  item
+				  name: 'Remove...';
+				  action: [ self removeSelectedTask ] ]
 ]
 
 { #category : #initialization }
