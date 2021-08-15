@@ -1,5 +1,8 @@
 "
 UI spec for tasks represented by a collection of `TODOTask`
+- 追加
+- 削除
+- 新規登録
 "
 Class {
 	#name : #TODOListPresenter,
