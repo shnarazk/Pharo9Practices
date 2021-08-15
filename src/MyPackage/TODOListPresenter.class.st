@@ -45,13 +45,13 @@ TODOListPresenter >> initializePresenters [
 				                      yourself);
 		                     addColumn:
 		                     (SpStringTableColumn
-			                      title: 'Title'
+			                      title: 'タイトル'
 			                      evaluated: [ :task | task title ]);
 		                     contextMenu: self todoListContextMenu;
 		                     yourself.
 
 	addButton := self newButton
-		             label: 'Add task';
+		             label: 'タスクを追加';
 		             action: [ self addTask ];
 		             yourself.
 	self layout: (SpBoxLayout newVertical
@@ -85,11 +85,11 @@ TODOListPresenter >> todoListContextMenu [
 	^ self newMenu
 		  addItem: [ :item | 
 			  item
-				  name: 'Edit...';
+				  name: '編集する...';
 				  action: [ self editSelectedTask ] ];
 		  addItem: [ :item | 
 			  item
-				  name: 'Remove...';
+				  name: '削除する...';
 				  action: [ self removeSelectedTask ] ]
 ]
 
