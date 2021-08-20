@@ -38,9 +38,5 @@ NHKCheckerPresenter >> initializeWindow: aWindowPresenter [
 
 { #category : #initialization }
 NHKCheckerPresenter >> updatePresenter [ 
-<<<<<<< HEAD
 	listPresenter items: Dictionary new asOrderedCollection.
-=======
-	listPresenter items: Dictionary new.
->>>>>>> 855c76d (Add NHKchecker transported from a Swift program)
 ]
