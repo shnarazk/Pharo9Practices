@@ -11,10 +11,11 @@ Class {
 		'g1',
 		'g2',
 		'e1',
-		'e2'
+		'e2',
+		'channels'
 	],
 	#classVars : [
-		'apiKey'
+		'ApiKey'
 	],
 	#category : #MyPackage
 }
@@ -22,13 +23,13 @@ Class {
 { #category : #accessing }
 NHKChecker class >> apiKey [
 
-	^ apiKey
+	^ ApiKey
 ]
 
 { #category : #accessing }
 NHKChecker class >> apiKey: aKey [
 
-	apiKey := aKey
+	ApiKey := aKey
 ]
 
 { #category : #specs }
@@ -38,10 +39,15 @@ NHKChecker class >> defaultSpec [
 		  
 ]
 
+{ #category : #accessing }
+NHKChecker >> channels [
+
+	^ channels
+]
+
 { #category : #initialization }
 NHKChecker >> initialize [
 
-	| channels |
 	json := ZnClient new get:
 		        'https://api.nhk.or.jp/v2/pg/now/400/g1.json?key='
 		        , self class apiKey.

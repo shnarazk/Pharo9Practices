@@ -14,9 +14,10 @@ Class {
 NHKCheckerPresenter >> initializePresenters [
 
 	listPresenter := self newTable
+		                 items: (application channels at: 'g1') values asOrderedCollection;
 		                 addColumn: (SpStringTableColumn
 				                  title: 'clock'
-				                  evaluated: [ :program | program at: 'time' ]);
+				                  evaluated: [ :program | program at: 'start_time' ]);
 		                 addColumn: (SpStringTableColumn
 				                  title: 'タイトル'
 				                  evaluated: [ :program | program at: 'title' ]);
@@ -38,5 +39,5 @@ NHKCheckerPresenter >> initializeWindow: aWindowPresenter [
 
 { #category : #initialization }
 NHKCheckerPresenter >> updatePresenter [ 
-	listPresenter items: Dictionary new asOrderedCollection.
+	listPresenter items: (application channels at: 'g1') values asOrderedCollection .
 ]
