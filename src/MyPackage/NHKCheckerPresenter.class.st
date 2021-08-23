@@ -14,13 +14,21 @@ Class {
 NHKCheckerPresenter >> initializePresenters [
 
 	listPresenter := self newTable
-		                 items: (application channels at: 'g1') values asOrderedCollection;
+		                 items:
+			                 (application channels at: 'g1') values
+				                 asOrderedCollection;
+		                 addColumn: ((SpStringTableColumn
+				                   title: 'clock'
+				                   evaluated: [ :program | 
+					                   ((program at: 'start_time') allButFirst: 11) first: 5 ]) 
+				                  width: 40);
+		                 addColumn: ((SpStringTableColumn
+				                   title: 'タイトル'
+				                   evaluated: [ :program | program at: 'title' ]) 
+				                  width: 120);
 		                 addColumn: (SpStringTableColumn
-				                  title: 'clock'
-				                  evaluated: [ :program | program at: 'start_time' ]);
-		                 addColumn: (SpStringTableColumn
-				                  title: 'タイトル'
-				                  evaluated: [ :program | program at: 'title' ]);
+				                  title: 'contents'
+				                  evaluated: [ :program | program at: 'subtitle' ]);
 		                 yourself.
 
 	self layout: (SpBoxLayout newVertical
