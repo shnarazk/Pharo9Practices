@@ -18,7 +18,7 @@ TODOListPresenter >> addTask [
 
 	(TODOTaskPresenter newApplication: self application)
 		task: TODOTask new;
-		openModalWithSpec.
+		openModal.
 	self updatePresenter
 ]
 
@@ -45,13 +45,13 @@ TODOListPresenter >> initializePresenters [
 				                      yourself);
 		                     addColumn:
 		                     (SpStringTableColumn
-			                      title: 'タイトル'
+			                      title: 'TODO'
 			                      evaluated: [ :task | task title ]);
 		                     contextMenu: self todoListContextMenu;
 		                     yourself.
 
 	addButton := self newButton
-		             label: 'タスクを追加';
+		             label: 'ADD';
 		             action: [ self addTask ];
 		             yourself.
 	self layout: (SpBoxLayout newVertical

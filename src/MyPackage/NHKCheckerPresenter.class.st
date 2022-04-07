@@ -23,7 +23,7 @@ NHKCheckerPresenter >> initializePresenters [
 					                   ((program at: 'start_time') allButFirst: 11) first: 5 ]) 
 				                  width: 40);
 		                 addColumn: ((SpStringTableColumn
-				                   title: 'タイトル'
+				                   title: 'Title'
 				                   evaluated: [ :program | program at: 'title' ]) 
 				                  width: 120);
 		                 addColumn: (SpStringTableColumn

@@ -67,23 +67,29 @@ NHKChecker >> initializeWindow: aWindowPresenter [
 		initialExtent: 700@300
 ]
 
+{ #category : #accessing }
+NHKChecker >> json [
+
+	^ json
+]
+
 { #category : #updating }
 NHKChecker >> loadJSON [
 
-	| channels |
-	json := ZnClient new get:
+	| loaded |
+	loaded := ZnClient new get:
 		        'https://api.nhk.or.jp/v2/pg/now/400/g1.json?key='
 		        , self class apiKey.
-	json := STON reader on: json readStream.
+	json := STON reader on: loaded readStream.
 	channels := json next at: 'nowonair_list'.
 	g1 := channels at: 'g1'.
-	g2 := channels at: 'g2'.
-	e1 := channels at: 'e1'.
-	e2 := channels at: 'e2'
+	"g2 := channels at: 'g2'."
+	"e1 := channels at: 'e1'."
+	"e2 := channels at: 'e2'"
 ]
 
-{ #category : #accessing }
-NHKChecker >> start [ 
-	(NHKCheckerPresenter newApplication: self) openWithSpec 
-	
+{ #category : #running }
+NHKChecker >> start [
+
+	(NHKCheckerPresenter newApplication: self) open
 ]

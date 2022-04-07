@@ -7,8 +7,8 @@ Class {
 	#category : #MyPackage
 }
 
-{ #category : #accessing }
-TODOApplication >> start [ 
-	(TODOListPresenter newApplication: self) openWithSpec 
-	
+{ #category : #running }
+TODOApplication >> start [
+
+	(TODOListPresenter newApplication: self) open
 ]
