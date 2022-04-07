@@ -28,10 +28,10 @@ PiFinder >> initialize [
  adding := false.
 ]
 
-{ #category : #constants }
+{ #category : #accessing }
 PiFinder >> pi [
 
-^ (currSum * 4) asFloat
+	^ (currSum * 4) asFloat
 ]
 
 { #category : #stepping }
