@@ -9,6 +9,12 @@ returns
 ```
 3.1415976535647934
 ```
+
+Or simply run:
+
+```language=Pharo
+PiFinder runTo: 200000
+```
 "
 Class {
 	#name : #PiFinder,
@@ -20,6 +26,15 @@ Class {
 	],
 	#category : #'Pi Finder'
 }
+
+{ #category : #'instance creation' }
+PiFinder class >> runTo: limit [
+
+	| pf |
+	pf := self new.
+	limit timesRepeat: [ pf step ].
+	^ pf pi
+]
 
 { #category : #initialization }
 PiFinder >> initialize [ 
