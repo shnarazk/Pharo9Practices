@@ -5,8 +5,25 @@ Class {
 }
 
 { #category : #'creation tests' }
+LobbyStateTest class >> aGoal [
+| goal |
+	goal := LobbyState newFrom: { 3 . 3 . 3 . 3 } asOrderedCollection.
+	goal floor: 3.
+	^goal 
+
+]
+
+{ #category : #'creation tests' }
 LobbyStateTest class >> aStart [
- ^ LobbyState newFrom: 		{ 0 . 0 . 0 . 1 . 1 } asOrderedCollection 
+
+	^ LobbyState newFrom: { 0. 0. 1. 1 } asOrderedCollection
+]
+
+{ #category : #tests }
+LobbyStateTest >> testAdjacentStates [
+
+	self assert: self class aStart isSafe.
+	self assert: self class aGoal isSafe
 ]
 
 { #category : #tests }
@@ -20,6 +37,13 @@ LobbyStateTest >> testCost [
 ]
 
 { #category : #tests }
+LobbyStateTest >> testEstimate [
+
+
+	self assert: self class aGoal estimate equals: 0.
+]
+
+{ #category : #tests }
 LobbyStateTest >> testGoalHasLowestEstimation [
 
 	| goal |
@@ -30,10 +54,11 @@ LobbyStateTest >> testGoalHasLowestEstimation [
 { #category : #tests }
 LobbyStateTest >> testIndexesOfMovableObjects [
 
-	| start |
+	| start ret |
 	start := self class aStart.
+	ret := start indexesOfMovableObjects.
 
-	self assert: start indexesOfMovableObjects size equals: 2
+	self assert: ret size equals: 2
 ]
 
 { #category : #tests }

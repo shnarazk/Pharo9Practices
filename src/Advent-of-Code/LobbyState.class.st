@@ -5,6 +5,7 @@ Class {
 	#name : #LobbyState,
 	#superclass : #Object,
 	#instVars : [
+		'floor',
 		'cost',
 		'estimatedCost',
 		'locations'
@@ -35,6 +36,7 @@ LobbyState class >> newFrom: aVec [
 	state
 		cost: 0;
 		estimatedCost: 0;
+		floor: 0;
 		locations: aVec asOrderedCollection.
 	^ state
 ]
@@ -51,6 +53,27 @@ LobbyState >> adjacentFloors [
   floor = 3 ifTrue: [ ^ { 2 } ].
   floor = 0 ifTrue: [ ^ { 1 } ].
   ^ { floor - 1 . floor + 1 }
+]
+
+{ #category : #computing }
+LobbyState >> adjacentStates [
+
+	| floors objects collection |
+	floors := self adjacentFloors.
+	objects := self movableObjectPairs.
+	collection := OrderedCollection new.
+	"Make all combinations"
+	floors do: [ :f | 
+		objects do: [ :o | 
+			| state |
+			state := self moveTo: f with: (o at: 1) and: (o at: 2).
+			state isSafe ifTrue: [ collection addLast: state ] ]].
+	^ collection
+]
+
+{ #category : #accessing }
+LobbyState >> chipsFloor: kind [
+^ locations at: kind * 2 + 2
 ]
 
 { #category : #accessing }
@@ -70,8 +93,8 @@ LobbyState >> estimate [
 	goalFloor := 3.
 	sumG := 0.
 	sumC := 0.
-	2 to: locations size do: [ :index | 
-		index % 2 = 0
+	1 to: locations size do: [ :index | 
+		index % 2 = 1
 			ifTrue: [ sumG := sumG + (3 - locations at: index) ]
 			ifFalse: [ sumC := sumC + (3 - locations at: index) ] ].
 	^ 1 * sumG + (2 * sumC)
@@ -92,36 +115,57 @@ LobbyState >> estimatedCost: aCost [
 { #category : #accessing }
 LobbyState >> floor [
 
-	^ locations at: 1
+	^ floor 
 ]
 
 { #category : #accessing }
 LobbyState >> floor: aFloor [
 
-	locations at: 1 put: aFloor
+	floor := aFloor
+]
+
+{ #category : #accessing }
+LobbyState >> generatorsFloor: kind [
+ ^ locations at: kind * 2 + 1
 ]
 
 { #category : #accessing }
 LobbyState >> indexesOfMovableObjects [
 
-	| floor indexes |
-	floor := self floor.
+	| indexes |
 	indexes := OrderedCollection new.
-	2 to: locations size do: [ :index | 
-		floor = (locations at: index) ifTrue: [indexes addLast: index] ].
+	1 to: locations size do: [ :index | 
+		floor = (locations at: index) ifTrue: [ indexes addLast: index ] ].
 	^ indexes
+]
+
+{ #category : #predicates }
+LobbyState >> isSafe [
+
+	| kinds |
+	kinds := self numberOfKinds.
+	1 to: kinds do: [ :kind | 
+		| flr |
+		"First condition: chip has the generator."
+		(self generatorsFloor: kind) = (self chipsFloor: kind) ifTrue: [ 
+			^ true ].
+		"Second condition: no generator at the floor."
+		flr := self chipsFloor: kind.
+		1 to: kinds do: [ :k | 
+		flr = (self generatorsFloor: k) ifTrue: [ ^ false ] ] ].
+	^ true
 ]
 
 { #category : #accessing }
 LobbyState >> locationOf: anObject [
 
-	^ locations at: anObject + 1
+	^ locations at: anObject
 ]
 
 { #category : #accessing }
 LobbyState >> locationOf: anObject at: aFloor [
 
-	locations at: (anObject + 1) put: aFloor
+	locations at: anObject put: aFloor
 ]
 
 { #category : #accessing }
@@ -155,7 +199,7 @@ LobbyState >> movableObjectPairs [
 LobbyState >> moveTo: aFloor with: anObject and: anotherObject [
 
 	| state |
-	state := self class newFrom: self locations.
+	state := self class newFrom: self locations deepCopy.
 	state floor: aFloor.
 	state
 		locationOf: anObject at: aFloor;
@@ -163,4 +207,10 @@ LobbyState >> moveTo: aFloor with: anObject and: anotherObject [
 	state cost: self cost + 1.
 	state estimatedCost: state cost + state estimate.
 	^ state
+]
+
+{ #category : #accessing }
+LobbyState >> numberOfKinds [
+
+^ locations size / 2
 ]
