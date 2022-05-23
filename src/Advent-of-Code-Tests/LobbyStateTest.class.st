@@ -46,6 +46,15 @@ LobbyStateTest >> testInitialization [
 ]
 
 { #category : #tests }
+LobbyStateTest >> testMovableObjectPairs [
+
+	| start ret |
+	start := self class aStart.
+	ret := start movableObjectPairs.
+	self assert: ret size equals: 3
+]
+
+{ #category : #tests }
 LobbyStateTest >> testStateOrder [
 
 	| s1 s2 |
