@@ -44,6 +44,15 @@ LobbyState >> <= other [
 ^ (self estimatedCost) <= (other estimatedCost)
 ]
 
+{ #category : #computing }
+LobbyState >> adjacentFloors [
+| floor |
+  floor := self floor.
+  floor = 3 ifTrue: [ ^ { 2 } ].
+  floor = 0 ifTrue: [ ^ { 1 } ].
+  ^ { floor - 1 . floor + 1 }
+]
+
 { #category : #accessing }
 LobbyState >> cost [
 	^ cost
@@ -57,13 +66,14 @@ cost := aCost
 { #category : #computing }
 LobbyState >> estimate [
 
-	| sumG sumC |
+	| sumG sumC goalFloor |
+	goalFloor := 3.
 	sumG := 0.
 	sumC := 0.
 	2 to: locations size do: [ :index | 
 		index % 2 = 0
-			ifTrue: [ sumG := sumG + locations at: index ]
-			ifFalse: [ sumC := sumC + locations at: index ] ].
+			ifTrue: [ sumG := sumG + (3 - locations at: index) ]
+			ifFalse: [ sumC := sumC + (3 - locations at: index) ] ].
 	^ 1 * sumG + (2 * sumC)
 ]
 
@@ -92,6 +102,17 @@ LobbyState >> floor: aFloor [
 ]
 
 { #category : #accessing }
+LobbyState >> indexesOfMovableObjects [
+
+	| floor indexes |
+	floor := self floor.
+	indexes := OrderedCollection new.
+	2 to: locations size do: [ :index | 
+		floor = (locations at: index) ifTrue: [indexes addLast: index] ].
+	^ indexes
+]
+
+{ #category : #accessing }
 LobbyState >> locationOf: anObject [
 
 	^ locations at: anObject + 1
@@ -112,6 +133,22 @@ LobbyState >> locations [
 LobbyState >> locations: aVec [
  locations := aVec 
 
+]
+
+{ #category : #computing }
+LobbyState >> movableObjectPairs [
+
+	"Return all combination of movable objects"
+
+	| indexes collection |
+	collection := OrderedCollection new.
+	indexes := self indexesOfMovableObjects.
+	1 to: indexes size do: [ :i | 
+		i to: indexes size do: [ :j | 
+			collection addLast: { 
+					(indexes at: i).
+					(indexes at: j) } ] ].
+	^ collection
 ]
 
 { #category : #'instance creation' }
