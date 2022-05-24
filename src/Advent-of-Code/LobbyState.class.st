@@ -10,6 +10,9 @@ Class {
 		'estimatedCost',
 		'locations'
 	],
+	#classVars : [
+		'NumberOfKinds'
+	],
 	#category : #'Advent-of-Code'
 }
 
@@ -145,6 +148,14 @@ locations do: [ :each | ret := ret * 4 + each ].
 ^ret 
 ]
 
+{ #category : #predicates }
+LobbyState >> indexOfGoal [
+| i | 
+i := 0.
+locations do: [ :each | i := i * 4 + 3 ].
+^i
+]
+
 { #category : #accessing }
 LobbyState >> indexesOfMovableObjects [
 
@@ -231,5 +242,26 @@ LobbyState >> moveTo: aFloor with: anObject and: anotherObject [
 { #category : #accessing }
 LobbyState >> numberOfKinds [
 
-^ locations size / 2
+	^ self class numberOfKinds 
+]
+
+{ #category : #computing }
+LobbyState >> pack [
+
+	
+	locations := self index
+]
+
+{ #category : #computing }
+LobbyState >> unpack [
+
+	| n vec |
+	n := self class numberOfKinds * 2.
+	vec := Array new: n.
+	1 to: n do: [ :index | 
+		| rem |
+		rem := locations \\ 4.
+		vec at: n - index + 1 put: rem.
+		locations := locations - rem / 4 ].
+	locations := vec
 ]

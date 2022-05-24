@@ -35,7 +35,7 @@ Day11 class >> start: start [
 { #category : #computing }
 Day11 >> costToGoal: aStart [
 
-	| count visit toCheck start |
+	| count visit toCheck start goalIndex |
 	count := 0.
 
 	"Transcript
@@ -44,6 +44,7 @@ Day11 >> costToGoal: aStart [
 	visit := Bag new.
 	toCheck := Heap new.
 	start := aStart.
+	goalIndex := aStart indexOfGoal.
 	toCheck add: start.
 	[ toCheck isEmpty ] whileFalse: [ 
 		| state |
@@ -61,7 +62,7 @@ Day11 >> costToGoal: aStart [
 			show: ' visited? ';
 			show: (visit includes: state index);
 			cr."
-		state isGoal ifTrue: [ ^ state cost ].
+		state index =goalIndex ifTrue: [ ^ state cost ].
 		(visit includes: state index) ifFalse: [ 
 			visit add: state index.
 			state adjacentStates do: [ :next | toCheck add: next ] ] ].
