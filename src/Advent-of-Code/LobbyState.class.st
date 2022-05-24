@@ -45,9 +45,18 @@ LobbyState class >> newFrom: aVec at: aFloor [
 	state
 		cost: 0;
 		estimatedCost: 0;
-		floor: aFloor ;
-		locations: aVec asOrderedCollection.
+		floor: aFloor;
+		locations: aVec asArray.
+
+	NumberOfKinds := aVec size / 2.
+
 	^ state
+]
+
+{ #category : #'instance creation' }
+LobbyState class >> numberOfKinds [
+
+	^ NumberOfKinds
 ]
 
 { #category : #comparing }

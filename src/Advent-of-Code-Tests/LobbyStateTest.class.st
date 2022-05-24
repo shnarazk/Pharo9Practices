@@ -23,6 +23,14 @@ LobbyStateTest class >> aStart [
 	^ LobbyState newFrom: { 0. 0. 1. 1 } asOrderedCollection
 ]
 
+{ #category : #running }
+LobbyStateTest >> setUp [
+	super setUp.
+	aStart := LobbyState newFrom: { 0. 0. 1. 1 } asOrderedCollection.
+	aGoal := LobbyState newFrom: { 3. 3. 3. 3 } asOrderedCollection.
+	aGoal floor: 3
+]
+
 { #category : #tests }
 LobbyStateTest >> testAdjacentStates [
 
