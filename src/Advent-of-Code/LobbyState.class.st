@@ -3,15 +3,10 @@ The status of y2016 day 11.
 "
 Class {
 	#name : #LobbyState,
-	#superclass : #Object,
+	#superclass : #LobbyStateIndex,
 	#instVars : [
 		'floor',
-		'cost',
-		'estimatedCost',
 		'locations'
-	],
-	#classVars : [
-		'NumberOfKinds'
 	],
 	#category : #'Advent-of-Code'
 }
@@ -53,17 +48,6 @@ LobbyState class >> newFrom: aVec at: aFloor [
 	^ state
 ]
 
-{ #category : #'instance creation' }
-LobbyState class >> numberOfKinds [
-
-	^ NumberOfKinds
-]
-
-{ #category : #comparing }
-LobbyState >> <= other [
-^ (self estimatedCost) <= (other estimatedCost)
-]
-
 { #category : #computing }
 LobbyState >> adjacentFloors [
 | floor |
@@ -94,16 +78,6 @@ LobbyState >> chipsFloor: kind [
 ^ locations at: kind * 2 + 2
 ]
 
-{ #category : #accessing }
-LobbyState >> cost [
-	^ cost
-]
-
-{ #category : #accessing }
-LobbyState >> cost: aCost [
-cost := aCost 
-]
-
 { #category : #computing }
 LobbyState >> estimate [
 
@@ -116,18 +90,6 @@ LobbyState >> estimate [
 			ifTrue: [ sumG := sumG + (3 - locations at: index) ]
 			ifFalse: [ sumC := sumC + (3 - locations at: index) ] ].
 	^ 1 * sumG + (2 * sumC)
-]
-
-{ #category : #accessing }
-LobbyState >> estimatedCost [
-
-	^ estimatedCost
-]
-
-{ #category : #accessing }
-LobbyState >> estimatedCost: aCost [
-
-	estimatedCost := aCost
 ]
 
 { #category : #accessing }
