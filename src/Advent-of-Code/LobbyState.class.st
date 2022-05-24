@@ -218,23 +218,27 @@ LobbyState >> numberOfKinds [
 	^ self class numberOfKinds 
 ]
 
-{ #category : #computing }
+{ #category : #converting }
 LobbyState >> pack [
 
-	
-	locations := self index
+	"locations := self index"
+
+	| state |
+	state := LobbyStateIndex new initialize: self index.
+	state cost: self cost; estimatedCost: self estimatedCost.
+	^state
 ]
 
-{ #category : #computing }
+{ #category : #converting }
 LobbyState >> unpack [
 
 	| n vec |
 	n := self class numberOfKinds * 2.
 	vec := Array new: n.
-	1 to: n do: [ :index | 
+	1 to: n do: [ :i | 
 		| rem |
 		rem := locations \\ 4.
-		vec at: n - index + 1 put: rem.
+		vec at: n - i + 1 put: rem.
 		locations := locations - rem / 4 ].
 	locations = floor ifFalse: [ self error: 'failed to unpack.' ].
 	locations := vec
