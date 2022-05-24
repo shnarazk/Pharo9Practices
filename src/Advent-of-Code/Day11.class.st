@@ -15,6 +15,12 @@ Day11 class >> part1 [
 ]
 
 { #category : #initialization }
+Day11 class >> part2 [
+
+	^ self start: (LobbyState newFrom: { 0. 0. 0. 0. 1. 2. 1. 1. 1. 1. 0. 0. 0. 0 })
+]
+
+{ #category : #initialization }
 Day11 class >> start: start [
 
 	"comment stating purpose of class-side method"
