@@ -30,13 +30,19 @@ LobbyState class >> createFrom: aState to: aFloor with: anObject and: anotherObj
 { #category : #'instance creation' }
 LobbyState class >> newFrom: aVec [
 
+	^ self newFrom: aVec at: 0
+]
+
+{ #category : #'instance creation' }
+LobbyState class >> newFrom: aVec at: aFloor [
+
 	| state |
 	state := self new.
 
 	state
 		cost: 0;
 		estimatedCost: 0;
-		floor: 0;
+		floor: aFloor ;
 		locations: aVec asOrderedCollection.
 	^ state
 ]
@@ -126,7 +132,17 @@ LobbyState >> floor: aFloor [
 
 { #category : #accessing }
 LobbyState >> generatorsFloor: kind [
- ^ locations at: kind * 2 + 1
+
+	^ locations at: (kind * 2 + 1)
+]
+
+{ #category : #computing }
+LobbyState >> index [
+
+| ret |
+ret := floor .
+locations do: [ :each | ret := ret * 4 + each ].
+^ret 
 ]
 
 { #category : #accessing }
@@ -140,19 +156,22 @@ LobbyState >> indexesOfMovableObjects [
 ]
 
 { #category : #predicates }
+LobbyState >> isGoal [
+
+^ floor = 3 and:  [ locations allSatisfy: [ :each | each = 3 ] ]
+]
+
+{ #category : #predicates }
 LobbyState >> isSafe [
 
 	| kinds |
 	kinds := self numberOfKinds.
-	1 to: kinds do: [ :kind | 
+	0 to: kinds - 1 do: [ :kind | 
 		| flr |
-		"First condition: chip has the generator."
-		(self generatorsFloor: kind) = (self chipsFloor: kind) ifTrue: [ 
-			^ true ].
-		"Second condition: no generator at the floor."
 		flr := self chipsFloor: kind.
-		1 to: kinds do: [ :k | 
-		flr = (self generatorsFloor: k) ifTrue: [ ^ false ] ] ].
+		flr = (self generatorsFloor: kind) ifFalse: [ 
+			0 to: kinds - 1 do: [ :k | 
+			flr = (self generatorsFloor: k) ifTrue: [ ^ false ] ] ] ].
 	^ true
 ]
 

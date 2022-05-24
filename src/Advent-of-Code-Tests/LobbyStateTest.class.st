@@ -52,6 +52,19 @@ LobbyStateTest >> testGoalHasLowestEstimation [
 ]
 
 { #category : #tests }
+LobbyStateTest >> testIndex [
+
+	| state res |
+	res := self class aStart index.
+
+	self assert: res equals: 5.
+state := LobbyState newFrom: { 0 . 0 . 0 . 0 } at: 0.
+	self assert: state index equals: 0.
+	state := LobbyState newFrom: { 1 } at: 1.
+	self assert: state index equals: 5
+]
+
+{ #category : #tests }
 LobbyStateTest >> testIndexesOfMovableObjects [
 
 	| start ret |
@@ -68,6 +81,25 @@ LobbyStateTest >> testInitialization [
 	s1 := LobbyState newFrom: OrderedCollection  new.
 	s2 := LobbyState newFrom: OrderedCollection  new.
 	self assert: s1 estimatedCost equals: 0
+]
+
+{ #category : #tests }
+LobbyStateTest >> testIsGoal [
+
+self assert: (self class aStart isGoal) equals: false.
+self assert: (self class aGoal isGoal) equals: true.
+]
+
+{ #category : #tests }
+LobbyStateTest >> testIsSafe [
+
+	"self assert: self class aStart isSafe equals: true."
+
+	"self assert: self class aGoal isSafe equals: true."
+
+	self
+		assert: (LobbyState newFrom: { 0. 1. 1. 0 }) isSafe
+		equals: false
 ]
 
 { #category : #tests }

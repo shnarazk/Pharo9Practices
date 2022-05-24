@@ -6,5 +6,9 @@ Class {
 
 { #category : #tests }
 Day11Test >> testFindGoal [
-self assert: false
+
+	| example cost |
+	example := LobbyState newFrom: { 1. 0. 2. 0 }.
+	cost := Day11 start: example.
+	self assert: cost equals: 11
 ]
