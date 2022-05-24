@@ -120,10 +120,22 @@ LobbyStateTest >> testMovableObjectPairs [
 { #category : #tests }
 LobbyStateTest >> testPack [
 
-| state |
-state := LobbyState newFrom: { 1 . 0 . 3 . 2 }.
-state pack; unpack.
-self assert: state locations equals: { 1 . 0 . 3 . 2 }.
+	| state |
+	state := LobbyState newFrom: { 1. 0. 3. 2 }.
+	state
+		pack;
+		unpack.
+	self assert: state locations equals: { 1. 0. 3. 2 }.
+	self assert: state floor equals: 0.
+		aStart 
+		pack;
+		unpack.
+	self assert: aStart  floor equals: 0.
+	aGoal
+		pack;
+		unpack.
+	self assert: aGoal isGoal equals: true.
+	self assert: aGoal floor equals: 3
 ]
 
 { #category : #tests }

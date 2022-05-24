@@ -35,20 +35,15 @@ Day11 class >> start: start [
 { #category : #computing }
 Day11 >> costToGoal: aStart [
 
-	| count visit toCheck start goalIndex |
-	count := 0.
-
-	"Transcript
-		show: 'Start';
-		cr."
+	| visit toCheck start goalIndex |
 	visit := Bag new.
 	toCheck := Heap new.
 	start := aStart.
 	goalIndex := aStart indexOfGoal.
+	start pack.
 	toCheck add: start.
 	[ toCheck isEmpty ] whileFalse: [ 
-		| state |
-		count := count + 1.
+		| state index |
 		state := toCheck removeFirst.
 		"Transcript
 			show: 'Expand ';
@@ -62,9 +57,13 @@ Day11 >> costToGoal: aStart [
 			show: ' visited? ';
 			show: (visit includes: state index);
 			cr."
-		state index =goalIndex ifTrue: [ ^ state cost ].
-		(visit includes: state index) ifFalse: [ 
-			visit add: state index.
-			state adjacentStates do: [ :next | toCheck add: next ] ] ].
+		index := state locations.
+		index = goalIndex ifTrue: [ ^ state cost ].
+		(visit includes: index) ifFalse: [ 
+			visit add: index.
+			state unpack.
+			state adjacentStates collect: [ :next | 
+				next pack.
+				toCheck add: next ] ] ].
 	self error: 'No more candidates'
 ]

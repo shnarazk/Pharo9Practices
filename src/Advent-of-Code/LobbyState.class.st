@@ -159,10 +159,12 @@ locations do: [ :each | ret := ret * 4 + each ].
 
 { #category : #predicates }
 LobbyState >> indexOfGoal [
-| i | 
-i := 0.
-locations do: [ :each | i := i * 4 + 3 ].
-^i
+
+	| i |
+	"start from the floor of elevator."
+	i := 3.
+	locations do: [ :each | i := i * 4 + 3 ].
+	^ i
 ]
 
 { #category : #accessing }
@@ -272,5 +274,6 @@ LobbyState >> unpack [
 		rem := locations \\ 4.
 		vec at: n - index + 1 put: rem.
 		locations := locations - rem / 4 ].
+	locations = floor ifFalse: [ self error: 'failed to unpack.' ].
 	locations := vec
 ]
