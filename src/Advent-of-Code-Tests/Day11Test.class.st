@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #tests }
-Day11Test >> testFindGoal [
+Day11Test >> testCostToGoal [
 
 	| example cost |
 	example := LobbyState newFrom: { 1. 0. 2. 0 }.

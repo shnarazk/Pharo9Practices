@@ -41,29 +41,28 @@ Day11 >> costToGoal: aStart [
 	start := aStart.
 	goalIndex := aStart indexOfGoal.
 	start pack.
-	toCheck add: start.
+	toCheck add: start pack.
 	[ toCheck isEmpty ] whileFalse: [ 
 		| state index |
 		state := toCheck removeFirst.
-		"Transcript
-			show: 'Expand ';
-			show: state locations;
-			show: ' at ';
-			show: state floor;
-			show: ' cost: ';
-			show: state cost;
-			show: ' goal? ';
-			show: state isGoal;
-			show: ' visited? ';
-			show: (visit includes: state index);
-			cr."
-		index := state locations.
+		"self progress: state on: visit."
+		index := state index.
 		index = goalIndex ifTrue: [ ^ state cost ].
 		(visit includes: index) ifFalse: [ 
 			visit add: index.
-			state unpack.
-			state adjacentStates collect: [ :next | 
-				next pack.
-				toCheck add: next ] ] ].
+			state unpack adjacentStates collect: [ :next | 
+				toCheck add: next pack ] ] ].
 	self error: 'No more candidates'
+]
+
+{ #category : #debugging }
+Day11 >> progress: state on: visit [
+
+Transcript
+			show: 'Expand '; show: state locations;
+			show: ' at '; show:state floor;
+			show: ' cost: '; show: state cost;
+			show: ' goal? '; show: state isGoal;
+			show: ' visited? '; show: (visit includes: state index);
+			cr.
 ]

@@ -15,7 +15,13 @@ Class {
 	#category : #'Advent-of-Code'
 }
 
-{ #category : #'instance creation' }
+{ #category : #accessing }
+LobbyStateIndex class >> newForIndex: anIndex [
+^ self new initialize: anIndex 
+
+]
+
+{ #category : #accessing }
 LobbyStateIndex class >> numberOfKinds [
 
 	^ NumberOfKinds
@@ -45,6 +51,16 @@ LobbyStateIndex >> estimatedCost [
 LobbyStateIndex >> estimatedCost: aCost [
 
 	estimatedCost := aCost 
+]
+
+{ #category : #accessing }
+LobbyStateIndex >> index [
+^index
+]
+
+{ #category : #initialization }
+LobbyStateIndex >> initialize: anIndex [
+index := anIndex 
 ]
 
 { #category : #testing }
