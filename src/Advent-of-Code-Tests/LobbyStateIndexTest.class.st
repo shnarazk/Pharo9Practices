@@ -13,7 +13,8 @@ Class {
 LobbyStateIndexTest >> setUp [
 
 	super setUp.
-	state := LobbyStateIndex  new.
+	LobbyStateIndex numberOfKinds: 4.
+	state := LobbyStateIndex new.
 	state
 		cost: 0;
 		estimatedCost: 0;
@@ -26,7 +27,7 @@ LobbyStateIndexTest >> setUp [
 		initialize: 0.
 
 
-	aGoal := LobbyStateIndex  new.
+	aGoal := LobbyStateIndex new.
 	aGoal
 		cost: 11;
 		estimatedCost: 0;

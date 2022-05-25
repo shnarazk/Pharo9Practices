@@ -27,6 +27,12 @@ LobbyStateIndex class >> numberOfKinds [
 	^ NumberOfKinds
 ]
 
+{ #category : #accessing }
+LobbyStateIndex class >> numberOfKinds: num [
+
+	NumberOfKinds := num
+]
+
 { #category : #comparing }
 LobbyStateIndex >> <= other [
 ^ (self estimatedCost) <= (other estimatedCost)

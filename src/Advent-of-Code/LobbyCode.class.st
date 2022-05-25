@@ -1,5 +1,8 @@
 "
-bit-array coded version
+bit-array coded version.
+
+**Note**: index starts with 1.
+
 "
 Class {
 	#name : #LobbyCode,
@@ -9,6 +12,7 @@ Class {
 	],
 	#classVars : [
 		'Goal',
+		'NumberOfKinds',
 		'Width'
 	],
 	#category : #'Advent-of-Code'
@@ -20,10 +24,43 @@ LobbyCode class >> goal [
 ]
 
 { #category : #initialization }
+LobbyCode class >> setNumberOfKinds: num [
+
+	NumberOfKinds := num.
+	Width := (num + 1) * 2.
+	Goal := (2 raisedToInteger: Width) - 1
+]
+
+{ #category : #initialization }
 LobbyCode class >> setWidth: aWidth [
 
 	Width := aWidth.
 	Goal := (2 raisedToInteger: aWidth) - 1
+]
+
+{ #category : #accessing }
+LobbyCode class >> width [
+^Width 
+]
+
+{ #category : #accessing }
+LobbyCode >> at: index [
+
+	| mask result |
+	mask := 1 << (self class width - (index * 2) + 1).
+	result := (code bitAnd: mask) > 0
+		          ifTrue: [ 2 ]
+		          ifFalse: [ 0 ].
+	mask := mask >> 1.
+	(code bitAnd: mask) > 0
+		ifTrue: [ ^ result + 1 ]
+		ifFalse: [ ^ result ]
+]
+
+{ #category : #accessing }
+LobbyCode >> changeAt: index to: val [
+
+self notYetImplemented .
 ]
 
 { #category : #initialization }
