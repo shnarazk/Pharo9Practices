@@ -1,2 +1,2 @@
-# learn-pharo
-Let's learn a descendant of Smalltalk
+# Learn-pharo
+Let's learn a descendant of Smalltalk.
