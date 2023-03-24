@@ -13,3 +13,4 @@ N=1_000_000_000
 | `PiFinder`      |  aborted   |
 | Python3.10      |          168.67 |
 | Scratch(turbo mode) | 227.26 (N=100_000_000)|
+| CBQN (singeli)  |  1.48(N=100_000_000)|
