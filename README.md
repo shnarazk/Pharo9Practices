@@ -9,6 +9,6 @@ N=1_000_000_000
 | program         |exec. time (sec)|
 |-----------------|---------------:|
 | `PiFinderFloat` |           1.60 |
-| `PiFinderFloat` |           1.17 |
+| `PiFinderFloat2`|           1.17 |
 | `PiFinder`      |  aborted   |
 | Python3.10      |          23.61 |
