@@ -9,8 +9,8 @@ N=100_000_000
 | program         |exec. time (sec)|
 |-----------------|---------------:|
 | `PiFinderFloat` |           1.72 |
-| `PiFinderFloat2`|           1.26 |
-| `PiFinder`      |            TBM |
+| `PiFinderFloat2`|           1.16 |
+| `PiFinder`      |        give up |
 | Python3.10      |          16.00 |
 | Scratch(turbo mode) |     227.26 |
 | pi3.bqn (CBQN) |            1.48 |
@@ -19,8 +19,8 @@ N=1_000_000_000
 
 | program         |exec. time (sec)|
 |-----------------|---------------:|
-| `PiFinderFloat` |           1.60 |
-| `PiFinderFloat2`|           1.17 |
+| `PiFinderFloat` |          17.26 |
+| `PiFinderFloat2`|          11.72 |
 | `PiFinder`      |      crashed   |
 | Python3.10      |         168.67 |
 | Scratch(turbo mode) | don't know |
