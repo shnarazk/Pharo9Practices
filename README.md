@@ -8,12 +8,12 @@ N=100_000_000
 
 | program         |exec. time (sec)|
 |-----------------|---------------:|
-| `PiFinderFloat` |            TBM |
-| `PiFinderFloat2`|            TBM |
+| `PiFinderFloat` |           1.72 |
+| `PiFinderFloat2`|           1.26 |
 | `PiFinder`      |            TBM |
-| Python3.10      |            TBM |
+| Python3.10      |          16.00 |
 | Scratch(turbo mode) |     227.26 |
-| pi3.bqn (CBQN) |           1.48 |
+| pi3.bqn (CBQN) |            1.48 |
 
 N=1_000_000_000
 
