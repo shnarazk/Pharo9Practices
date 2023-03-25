@@ -22,7 +22,7 @@ Class {
 	#classVars : [
 		'ApiKey'
 	],
-	#category : #MyPackage
+	#category : #'NHK-Finder'
 }
 
 { #category : #accessing }

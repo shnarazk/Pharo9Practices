@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'listPresenter'
 	],
-	#category : #MyPackage
+	#category : #'NHK-Finder'
 }
 
 { #category : #initialization }
