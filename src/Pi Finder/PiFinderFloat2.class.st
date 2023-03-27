@@ -1,3 +1,7 @@
+"
+I'm a more efficient pi calcurator.
+A positive term and the successive, negative term make a computaion unit.
+"
 Class {
 	#name : #PiFinderFloat2,
 	#superclass : #PiFinderFloat,
