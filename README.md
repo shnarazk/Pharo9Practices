@@ -1,7 +1,6 @@
 # Learn-pharo
 Let's learn a descendant of Smalltalk.
 
-
 # A performance comparison
 
 ### 100_000_000 terms (50_000_000 positive/negative pairs)
