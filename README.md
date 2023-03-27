@@ -1,5 +1,5 @@
 # Learn-pharo
-Let's learn a descendant of Smalltalk.
+Let's learn [Pharo](https://github.com/pharo-project/pharo), a descendant of Smalltalk.
 
 # A performance comparison
 
