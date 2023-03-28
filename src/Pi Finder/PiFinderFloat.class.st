@@ -9,17 +9,8 @@ $$
 Class {
 	#name : #PiFinderFloat,
 	#superclass : #PiFinder,
-	#instVars : [
-		'temp'
-	],
 	#category : #'Pi Finder'
 }
-
-{ #category : #initialization }
-PiFinderFloat >> initialize [
-super initialize.
-	temp := Fraction new
-]
 
 { #category : #stepping }
 PiFinderFloat >> step [
