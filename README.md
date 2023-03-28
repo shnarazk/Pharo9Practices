@@ -26,3 +26,7 @@ Let's learn [Pharo](https://github.com/pharo-project/pharo), a descendant of Sma
 | Scratch(turbo mode) | don't know |
 | pi3.bqn (CBQN)  |  out of memory |
 |  pi-rust(float) |           0.62 |
+
+
+------
+![](https://user-images.githubusercontent.com/997855/227437677-6d08cb28-ac92-49fd-8347-900d551b84cb.png)
