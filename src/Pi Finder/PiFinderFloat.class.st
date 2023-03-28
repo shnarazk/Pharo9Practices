@@ -1,5 +1,10 @@
 "
-I am a pi calculator using only float ind int. So I'm supposed to be fast.
+I am a pi calculator using only float ind int as following. So I'm supposed to be fast.
+
+$$
+\frac{\pi}{4.0} = \frac{1.0}{1.0} - \frac{1.0}{3.0} +  \frac{1.0}{5.0} - \frac{1.0}{7.0} +  \frac{1.0}{9.0} - \frac{1.0}{11.0} + \cdots
+$$
+
 "
 Class {
 	#name : #PiFinderFloat,

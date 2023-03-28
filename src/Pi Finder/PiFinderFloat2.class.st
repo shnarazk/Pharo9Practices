@@ -1,6 +1,12 @@
 "
 I'm a more efficient pi calcurator.
-A positive term and the successive, negative term make a computaion unit.
+As shown below, a positive term and the successive, negative term make a computaion unit.
+
+
+$$
+\frac{\pi}{4} = \frac{2.0}{1.0 \times 3.0} +  \frac{2.0}{5.0 \times 7.0} +  \frac{2.0}{9.0 \times11.0} + \cdots
+$$
+
 "
 Class {
 	#name : #PiFinderFloat2,

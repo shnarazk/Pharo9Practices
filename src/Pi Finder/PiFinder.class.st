@@ -1,11 +1,17 @@
 "
-Compute the Pi with Leibniz formula.
+I compute the $\pi$ with the following Leibniz formula.
 
+$$
+\frac{\pi}{4} = \frac{1}{1} - \frac{1}{3} +  \frac{1}{5} - \frac{1}{7} +  \frac{1}{9} - \frac{1}{11} + \cdots
+$$
+
+Try:
 ```
+pf := PiFinder new.
 200000 timesRepeat: [ pf step ].
 ```
 
-returns
+That returns:
 ```
 3.1415976535647934
 ```
