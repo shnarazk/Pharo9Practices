@@ -22,30 +22,78 @@ TreeClassBuilder >> classes: aCollectionOfClasses [
 	classes := aCollectionOfClasses 
 ]
 
+{ #category : #hooks }
+TreeClassBuilder >> createBoxFor: aClass [
+^RSBox new
+model: aClass;
+popup;
+draggable;
+yourself  
+]
+
+{ #category : #hooks }
+TreeClassBuilder >> createBoxes [
+^self classes collect: [ :class | self createBoxFor: class  ]
+]
+
+{ #category : #hooks }
+TreeClassBuilder >> createLinesFor: boxes [
+
+| lineBuilder |
+lineBuilder := RSLineBuilder orthoVertical .
+lineBuilder withVerticalAttachPoint ;
+color: Color black;
+shapes: boxes.
+^lineBuilder connectFrom: #superclass.
+
+]
+
+{ #category : #'accessing - defaults' }
+TreeClassBuilder >> defaultContainer [ 
+^RSCanvas new @ RSCanvasController 
+]
+
 { #category : #initialization }
 TreeClassBuilder >> initialize [ 
 super initialize .
 classes := #().
 ]
 
+{ #category : #accessing }
+TreeClassBuilder >> layout: aGroupOfBoxes [
+RSTreeLayout on: aGroupOfBoxes 
+]
+
+{ #category : #hooks }
+TreeClassBuilder >> normalize: aGroupOfBoxes [
+
+	RSNormalizer size
+		from: 10;
+		to: 100;
+		shapes: aGroupOfBoxes;
+		normalize: #linesOfCode.
+		
+	RSNormalizer color 
+	from: Color blue;
+	to: Color red;
+	shapes:  aGroupOfBoxes ;
+	normalize: #linesOfCode.
+]
+
 { #category : #hooks }
 TreeClassBuilder >> renderIn: canvas [
+"
+builder := TreeClassBuilder new.
+builder classes: ArrayedCollection withAllSubclasses, SliderMorph withAllSubclasses .
+builder asPresenter open.
+"
 
-	| data boxes |
-	data := Collection withAllSubclasses.
-	boxes := data collect: [ :class |
-		         RSBox new
-			         model: class;
-			         popup;
-			         draggable;
-			         yourself ].
-		canvas addAll: boxes.
-		RSNormalizer size  from: 10; to: 100; shapes: boxes; normalize: #linesOfCode .
-		RSNormalizer color from: Color blue ; to: Color red; shapes: boxes ; normalize: #linesOfCode .
-		RSLineBuilder orthoVertical withVerticalAttachPoint ; color: Color black; shapes: boxes ; connectFrom: #superclass.
-		
-	RSTreeLayout on: boxes.
-	
-       canvas @ RSCanvasController .
-canvas 
+	| boxes lines |
+	boxes := self createBoxes.
+	self normalize: boxes.
+	lines := self createLinesFor: boxes.
+	self layout: boxes.
+	canvas
+		addAll: lines;
+		addAll: boxes
 ]
