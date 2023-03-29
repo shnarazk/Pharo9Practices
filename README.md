@@ -1,6 +1,8 @@
 # Learn-pharo
 Let's learn [Pharo](https://github.com/pharo-project/pharo), a descendant of Smalltalk.
 
+- https://github.com/pharo-graphics/Bloc
+
 # A performance comparison
 
 ### 100_000_000 terms (50_000_000 positive/negative pairs)
