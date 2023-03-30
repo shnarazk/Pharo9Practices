@@ -3,6 +3,7 @@ Let's learn [Pharo](https://github.com/pharo-project/pharo), a descendant of Sma
 
 - https://github.com/pharo-graphics/Bloc
 - https://github.com/pharo-spec
+- https://thepharo.dev/2021/10/08/dynamic-layouts-with-spec2/
 
 # A performance comparison
 
