@@ -6,6 +6,11 @@ NHK checker
 ```language=Pharo
    NHKChecker new start.
 ```
+
+Or the most easy way is:
+```
+NHKCheker run: apikey
+```
 "
 Class {
 	#name : #NHKChecker,
@@ -42,6 +47,12 @@ NHKChecker class >> defaultSpec [
 
 	^ SpBoxLayout newTopToBottom
 		  
+]
+
+{ #category : #running }
+NHKChecker class >> run: aKey [
+ self apiKey: aKey.
+self new start.
 ]
 
 { #category : #accessing }
