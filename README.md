@@ -2,6 +2,7 @@
 Let's learn [Pharo](https://github.com/pharo-project/pharo), a descendant of Smalltalk.
 
 - https://github.com/pharo-graphics/Bloc
+- https://github.com/pharo-spec
 
 # A performance comparison
 
