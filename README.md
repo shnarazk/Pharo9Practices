@@ -14,6 +14,7 @@ Let's learn [Pharo](https://github.com/pharo-project/pharo), a descendant of Sma
 | `PiFinderFloat` |           1.72 |
 | `PiFinderFloat2`|           1.14 |
 | `PiFinderFloat3`|           1.28 |
+|  - on Cuis      |           2.98 |
 | `PiFinder`      |        give up |
 | Python3.10      |          16.00 |
 | Scratch(turbo mode) |     227.26 |
@@ -27,6 +28,7 @@ Let's learn [Pharo](https://github.com/pharo-project/pharo), a descendant of Sma
 | `PiFinderFloat` |          17.26 |
 | `PiFinderFloat2`|          11.55 |
 | `PiFinderFloat3`|          12.09 |
+| - on Cuis       |          29.33 |
 | `PiFinder`      |      crashed   |
 | Python3.10      |         168.67 |
 | Scratch(turbo mode) | don't know |
