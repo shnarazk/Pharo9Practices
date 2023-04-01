@@ -1,5 +1,5 @@
 "
-copied from cuis and revised massively
+I was copied from cuis and revised massively not to copy vectors.
 "
 Class {
 	#name : #Y2016Day16,
@@ -52,9 +52,18 @@ Y2016Day16 class >> part2 [
 { #category : #evaluation }
 Y2016Day16 >> expand [
 
-	[ vec size < limit ] whileTrue: [
-		vec := vec , { false } , (vec reverse collect: [ :v | v not ]) ].
-	vec := vec copyFrom: 1 to: limit.
+	[ length < limit ] whileTrue: [ "vec := vec , { false } , (vec reverse collect: [ :v | v not ]) ."
+		| offset count |
+		count := 0.
+		offset := length + 1 * 2.
+		1 to: length do: [ :i |
+			| j |
+			j := offset - i.
+			j <= limit ifTrue: [ vec at: j put: (vec at: i) not ] ].
+		vec at: length + 1 put: false.
+		length := limit min: length * 2 + 1.
+		count := count + 1 ].
+	"vec := vec copyFrom: 1 to: limit."
 	^ self shrink
 ]
 
@@ -73,16 +82,20 @@ Y2016Day16 >> limit: anObject [
 { #category : #'instance creation' }
 Y2016Day16 >> set: aString [
 
-	vec := aString asOrderedCollection collect: [ :char | char = $1 ].
-	length := vec size.
+	limit ifNil: [ limit := aString size ].
+	vec := Array new: limit.
+	aString withIndexDo: [ :char :index | vec at: index put: char = $1 ].
+	length := aString size
 ]
 
 { #category : #evaluation }
 Y2016Day16 >> shrink [
 
-	[ vec size odd ] whileFalse: [
-		vec := ((1 to: vec size) select: [ :i | i odd ]) collect: [ :i |
-			       (vec at: i) = (vec at: i + 1) ] ].
+	[ length  odd ] whileFalse: [
+		1 to: length  do: [ :i |
+			i odd ifTrue: [
+				vec at: i + 1 // 2 put: (vec at: i) = (vec at: i + 1) ] ].
+		length  := length  + 1 // 2 ].
 	^ self toString
 ]
 
@@ -90,10 +103,10 @@ Y2016Day16 >> shrink [
 Y2016Day16 >> toString [
 
 	| stream |
-	stream := WriteStream on: (String new: vec size).
-	vec do: [ :bool |
-		bool
-			ifFalse: [ stream nextPut: $0 ]
-			ifTrue: [ stream nextPut: $1 ] ].
-	^ stream contents 
+	stream := WriteStream on: (String new: length ).
+	1 to: length  do: [ :i |
+		stream nextPut: ((vec at: i)
+				 ifFalse: [ $0 ]
+				 ifTrue: [ $1 ]) ].
+	^ stream contents
 ]
