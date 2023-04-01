@@ -41,10 +41,26 @@ Y2016Day16 class >> part2 [
 	^ solver expand: data
 ]
 
+{ #category : #evaluation }
+Y2016Day16 >> expand: aVec [
+
+	aVec size < length ifTrue: [
+		^ self expand:
+			  aVec , { false } , (aVec reverse collect: [ :v | v not ]) ].
+	"notShrink ifTrue: [ ^ aVec ]."
+	^ self shrink: (aVec copyFrom: 1 to: length)
+]
+
 { #category : #'instance creation' }
 Y2016Day16 >> fromString: aString [
 
 	^ aString asOrderedCollection  collect: [ :char | char = $1 ]
+]
+
+{ #category : #convertion }
+Y2016Day16 >> initialize [
+
+	super initialize.
 ]
 
 { #category : #accessing }
