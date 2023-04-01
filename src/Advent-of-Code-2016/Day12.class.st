@@ -1,3 +1,6 @@
+"
+Cuis smalltalkからもってきた。
+"
 Class {
 	#name : #Day12,
 	#superclass : #Object,
