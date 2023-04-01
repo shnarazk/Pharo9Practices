@@ -1,10 +1,12 @@
 "
-From cuis
+copied from cuis and revised massively
 "
 Class {
 	#name : #Y2016Day16,
 	#superclass : #Object,
 	#instVars : [
+		'vec',
+		'limit',
 		'length'
 	],
 	#category : #'Advent-of-Code-2016-day16'
@@ -12,82 +14,86 @@ Class {
 
 { #category : #examples }
 Y2016Day16 class >> example [
-	| solver data |
+	"Y2016Day16 example >>> '01100'"
+
+	| solver |
 	solver := self new.
-	solver length: 20.
-	data := solver fromString: '10000'.
-	^ solver  expand: data.
+	solver limit: 20.
+	solver set: '10000'.
+	^ solver expand
 ]
 
 { #category : #'instance creation' }
 Y2016Day16 class >> part1 [
 
-	| solver data |
+	| solver  |
 	solver := self new.
-	solver length: 272.
-	data := solver fromString: '10001110011110000'.
-	Transcript show: 'Given: '; show:  (solver toString: data).
-	^ solver expand: data
+	solver limit: 272.
+	solver set: '10001110011110000'.
+	Transcript
+		show: 'Given: ';
+		show: (solver toString).
+	^ solver expand
 ]
 
 { #category : #'instance creation' }
 Y2016Day16 class >> part2 [
 
-	| solver data |
+	| solver  |
 	solver := self new.
-	solver length: 35651584.
-	data := solver fromString: '10001110011110000'.
-	Transcript show: 'Given: '; show: (solver toString: data).
-	^ solver expand: data
+	solver limit: 35651584.
+	 solver set: '10001110011110000'.
+	Transcript
+		show: 'Given: ';
+		show: (solver toString).
+	^ solver expand
 ]
 
 { #category : #evaluation }
-Y2016Day16 >> expand: aVec [
+Y2016Day16 >> expand [
 
-	aVec size < length ifTrue: [
-		^ self expand:
-			  aVec , { false } , (aVec reverse collect: [ :v | v not ]) ].
-	"notShrink ifTrue: [ ^ aVec ]."
-	^ self shrink: (aVec copyFrom: 1 to: length)
+	[ vec size < limit ] whileTrue: [
+		vec := vec , { false } , (vec reverse collect: [ :v | v not ]) ].
+	vec := vec copyFrom: 1 to: limit.
+	^ self shrink
+]
+
+{ #category : #accessing }
+Y2016Day16 >> limit [
+
+	^ limit
+]
+
+{ #category : #accessing }
+Y2016Day16 >> limit: anObject [
+
+	limit := anObject
 ]
 
 { #category : #'instance creation' }
-Y2016Day16 >> fromString: aString [
+Y2016Day16 >> set: aString [
 
-	^ aString asOrderedCollection  collect: [ :char | char = $1 ]
-]
-
-{ #category : #convertion }
-Y2016Day16 >> initialize [
-
-	super initialize.
-]
-
-{ #category : #accessing }
-Y2016Day16 >> length [
-
-	^ length
-]
-
-{ #category : #accessing }
-Y2016Day16 >> length: anObject [
-
-	length := anObject
+	vec := aString asOrderedCollection collect: [ :char | char = $1 ].
+	length := vec size.
 ]
 
 { #category : #evaluation }
-Y2016Day16 >> shrink: aVec [
-| tmp |
-aVec size odd ifTrue:  [^self toString: aVec ].
-tmp := ((1 to: aVec size) 
-	select: [ :i | i odd  ]) collect: [ :i |
-		(aVec at: i) = (aVec at: i + 1) ].
-^self shrink: tmp
-		 
+Y2016Day16 >> shrink [
+
+	[ vec size odd ] whileFalse: [
+		vec := ((1 to: vec size) select: [ :i | i odd ]) collect: [ :i |
+			       (vec at: i) = (vec at: i + 1) ] ].
+	^ self toString
 ]
 
 { #category : #convertion }
-Y2016Day16 >> toString: aVec [
+Y2016Day16 >> toString [
 
-^ aVec inject:  '' into: [ :str :bool | bool ifTrue: [ str, '1' ] ifFalse:  [ str, '0' ]].
+	| stream |
+	stream := WriteStream on: (String new: vec size).
+	vec do: [ :bool |
+		bool
+			ifFalse: [ stream nextPut: $0 ]
+			ifTrue: [ stream nextPut: $1 ] ].
+	^ stream contents 
 ]
