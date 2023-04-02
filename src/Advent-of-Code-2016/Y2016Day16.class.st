@@ -49,7 +49,7 @@ Y2016Day16 class >> part2 [
 	^ solver expand
 ]
 
-{ #category : #evaluation }
+{ #category : #evaluating }
 Y2016Day16 >> expand [
 
 	[ length < limit ] whileTrue: [ "vec := vec , { false } , (vec reverse collect: [ :v | v not ]) ."
@@ -88,7 +88,7 @@ Y2016Day16 >> set: aString [
 	length := aString size
 ]
 
-{ #category : #evaluation }
+{ #category : #evaluating }
 Y2016Day16 >> shrink [
 
 	[ length odd ] whileFalse: [
@@ -98,7 +98,7 @@ Y2016Day16 >> shrink [
 	^ self toString
 ]
 
-{ #category : #convertion }
+{ #category : #converting }
 Y2016Day16 >> toString [
 
 	| stream |
