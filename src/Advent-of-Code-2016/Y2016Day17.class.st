@@ -1,7 +1,3 @@
-"
-I was copied from cuis version.
--[the puzzle](https://adventofcode.com/2016/day/17).
-"
 Class {
 	#name : #Y2016Day17,
 	#superclass : #Object,
@@ -12,7 +8,6 @@ Class {
 	],
 	#classVars : [
 		'FoundGoal',
-		'Hasher',
 		'Input',
 		'ToVisit',
 		'Visit'
@@ -22,11 +17,12 @@ Class {
 
 { #category : #examples }
 Y2016Day17 class >> example [
+"Y2016Day17 example >>> 'DDUDRLRRUDRD'"
 	self initialize.
 	"Input := 'hijkl'."
 	"Input := 'ihgpwlah'."
 	Input := 'kglvqrro'.
-	^ self solve.
+	^ self solve
 ]
 
 { #category : #accessing }
@@ -39,18 +35,6 @@ Y2016Day17 class >> foundGoal [
 Y2016Day17 class >> foundGoal: anObject [
 
 	FoundGoal := anObject
-]
-
-{ #category : #accessing }
-Y2016Day17 class >> hasher [
-
-	^ Hasher
-]
-
-{ #category : #accessing }
-Y2016Day17 class >> hasher: anObject [
-
-	Hasher := anObject
 ]
 
 { #category : #accessing }
@@ -90,30 +74,23 @@ Y2016Day17 class >> part2 [
 	^ self solve2.
 ]
 
-{ #category : #initialization }
-Y2016Day17 class >> setHasher [
-Hasher := MD5 new.
-]
-
 { #category : #evaluating }
 Y2016Day17 class >> solve [
 
 	| start stage |
-	self flag: #TODO. "pay attention"
-	FoundGoal := nil.
 	start := self new.
 	start location: 1 @ 1.
 	stage := Set new.
 	stage add: start.
-	[ FoundGoal isNil & stage isEmpty ] whileFalse: [ "Transcript show: stage."
+	[ stage isEmpty ] whileFalse: [
 		stage := stage
 			         inject: Set new
-			         into: [ :aSet :each | "Transcript show: each path." 
-				         self flag: #TODO. "use addAll: aCollection"
-				         (each neighbars: [ :path | FoundGoal := path ]) do: [
-					         :next | aSet add: next ].
-				         aSet ] ].
-	^ FoundGoal
+			         into: [ :aSet :each | 
+				Transcript show: each path; cr.
+				         aSet
+					         addAll: (each neighbars: [ :path | ^ path ]);
+					         yourself ] ].
+	^ nil
 ]
 
 { #category : #evaluating }
@@ -199,33 +176,27 @@ Y2016Day17 >> location: anObject [
 ]
 
 { #category : #accessing }
-Y2016Day17 >> neighbars: aBlock [
+Y2016Day17 >> neighbars: aBlockAsFoundGoal [
+
 	| next masks locations |
-	4 @ 4 = location ifTrue: [
-		aBlock value: path.
-		^ {} ].
+	4 @ 4 = location ifTrue: [ ^ aBlockAsFoundGoal value: path ].
 	next := self nextKey.
-	masks := #(1 2 3 4 ) collect: [ :each |
-		(next at: each) > $a ].
-	locations := {0 @ -1. 0 @ 1. -1 @ 0. 1 @ 0} collect: [ :each |
-		location + each ].
-	^ (1 to: 4)
-		select: [ :each |
-			(masks at: each) and: [
-				(locations at: each)
-					between: 1 @ 1
-					and: 4 @ 4 ]]
-		thenCollect: [ :each |
-			self class
-				newAt: (locations at: each)
-				from:
-					path ,
-						({'U'. 'D'. 'L'. 'R'} at: each) ].
+	masks := #( 4 2 3 1 ) collect: [ :each | (next at: each) > $a ].
+	locations := location fourNeighbors.
+	^ #(4 2 3 1)
+		  select: [ :each |
+			  (masks at: each) and: [
+				  (locations at: each) isInsideRectangle: (1 @ 1 corner: 4 @ 4) ] ]
+		  thenCollect: [ :each |
+			  self class
+				  newAt: (locations at: each)
+				  from: path , ({ 'U'. 'D'. 'L'. 'R' } at: each) ]
 ]
 
 { #category : #accessing }
 Y2016Day17 >> nextKey [
-^self class hasher hash: (self class input, path)
+Transcript show: self class input, path; cr.
+	^ (MD5 hashMessage: self class input , path) hex copyFrom: 1 to: 4
 ]
 
 { #category : #accessing }
