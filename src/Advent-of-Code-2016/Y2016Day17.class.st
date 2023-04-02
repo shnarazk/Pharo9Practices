@@ -95,7 +95,7 @@ Y2016Day17 class >> setHasher [
 Hasher := MD5 new.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #evaluating }
 Y2016Day17 class >> solve [
 
 	| start stage |
@@ -105,16 +105,18 @@ Y2016Day17 class >> solve [
 	start location: 1 @ 1.
 	stage := Set new.
 	stage add: start.
-	[ FoundGoal isNil & stage isEmpty not ] whileTrue: [ "Transcript show: stage."
-		stage := stage inject: Set new into: [ :aSet :each |
-			         "Transcript show: each path."
-			         (each neighbars: [ :path | FoundGoal := path ]) do: [
-				         :next | aSet add: next ].
-			         aSet ] ].
+	[ FoundGoal isNil & stage isEmpty ] whileFalse: [ "Transcript show: stage."
+		stage := stage
+			         inject: Set new
+			         into: [ :aSet :each | "Transcript show: each path." 
+				         self flag: #TODO. "use addAll: aCollection"
+				         (each neighbars: [ :path | FoundGoal := path ]) do: [
+					         :next | aSet add: next ].
+				         aSet ] ].
 	^ FoundGoal
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #evaluating }
 Y2016Day17 class >> solve2 [
 
 	| start stage |
@@ -124,7 +126,7 @@ Y2016Day17 class >> solve2 [
 	start location: 1 @ 1.
 	stage := Set new.
 	stage add: start.
-	[ stage isEmpty not ] whileTrue: [ "Transcript show: FoundGoal asString."
+	[ stage isEmpty ] whileFalse: [ "Transcript show: FoundGoal asString."
 		stage := stage
 			         inject: Set new
 			         into: [ :aSet :each | "Transcript show: each key."
@@ -166,9 +168,10 @@ Y2016Day17 >> cost [
 ]
 
 { #category : #initialization }
-Y2016Day17 >> initialize [ 
-location := 1@1.
-path := ''.
+Y2016Day17 >> initialize [
+super initialize .
+	location := 1 @ 1.
+	path := ''
 ]
 
 { #category : #accessing }
@@ -195,7 +198,7 @@ Y2016Day17 >> location: anObject [
 	location := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Y2016Day17 >> neighbars: aBlock [
 	| next masks locations |
 	4 @ 4 = location ifTrue: [
@@ -220,7 +223,7 @@ Y2016Day17 >> neighbars: aBlock [
 						({'U'. 'D'. 'L'. 'R'} at: each) ].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Y2016Day17 >> nextKey [
 ^self class hasher hash: (self class input, path)
 ]
