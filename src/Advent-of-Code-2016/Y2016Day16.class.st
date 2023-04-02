@@ -91,11 +91,10 @@ Y2016Day16 >> set: aString [
 { #category : #evaluation }
 Y2016Day16 >> shrink [
 
-	[ length  odd ] whileFalse: [
-		1 to: length  do: [ :i |
-			i odd ifTrue: [
-				vec at: i + 1 // 2 put: (vec at: i) = (vec at: i + 1) ] ].
-		length  := length  + 1 // 2 ].
+	[ length odd ] whileFalse: [
+		length := length + 1 // 2.
+		1 to: length do: [ :i |
+		vec at: i put: (vec at: i * 2 - 1) = (vec at: i * 2) ] ].
 	^ self toString
 ]
 
