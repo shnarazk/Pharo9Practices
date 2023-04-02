@@ -24,6 +24,15 @@ Y2016Day16 class >> example [
 ]
 
 { #category : #'instance creation' }
+Y2016Day16 class >> new: aString [
+"(Y2016Day16 new: '011') limit >>> 3"
+	| solver |
+	solver := self new.
+	solver set: aString.
+	^ solver
+]
+
+{ #category : #'instance creation' }
 Y2016Day16 class >> part1 [
 
 	| solver  |
