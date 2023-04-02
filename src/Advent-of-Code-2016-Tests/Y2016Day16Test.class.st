@@ -26,11 +26,9 @@ Y2016Day16Test >> testPart2 [
 ]
 
 { #category : #tests }
-Y2016Day16Test >> testToString [ 
-| s v |
-v := '0011001'.
-s := Y2016Day16 new.
-s set: v.
-self assert: s toString  equals: v.
-	
+Y2016Day16Test >> testToString [
+
+	| v |
+	v := '0011001'.
+	self assert: (Y2016Day16 new: v) toString equals: v
 ]

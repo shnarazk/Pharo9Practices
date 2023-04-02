@@ -24,6 +24,15 @@ Y2016Day16 class >> example [
 ]
 
 { #category : #'instance creation' }
+Y2016Day16 class >> new: aString [
+"(Y2016Day16 new: '011') limit >>> 3"
+	| solver |
+	solver := self new.
+	solver set: aString.
+	^ solver
+]
+
+{ #category : #'instance creation' }
 Y2016Day16 class >> part1 [
 
 	| solver  |
@@ -102,11 +111,11 @@ Y2016Day16 >> shrink [
 { #category : #convertion }
 Y2016Day16 >> toString [
 
+"(Y2016Day16 new: '011') toString >>> '011'"
+
 	| stream |
-	stream := WriteStream on: (String new: length ).
-	1 to: length  do: [ :i |
-		stream nextPut: ((vec at: i)
-				 ifFalse: [ $0 ]
-				 ifTrue: [ $1 ]) ].
+	stream := WriteStream on: (String new: length).
+	1 to: length do: [ :i |
+	stream nextPut: (vec at: i) asInteger asCharacterDigit ].
 	^ stream contents
 ]
