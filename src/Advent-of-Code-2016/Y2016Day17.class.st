@@ -85,7 +85,7 @@ Y2016Day17 class >> solve [
 	[ stage isEmpty ] whileFalse: [
 		stage := stage
 			         inject: Set new
-			         into: [ :aSet :each | 
+			         into: [ :aSet :each |
 				Transcript show: each path; cr.
 				         aSet
 					         addAll: (each neighbars: [ :path | ^ path ]);
