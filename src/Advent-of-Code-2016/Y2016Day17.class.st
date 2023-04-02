@@ -1,3 +1,8 @@
+"
+I was copied from cuis version.
+See [the puzzle description](https://adventofcode.com/2016/day/17).
+
+"
 Class {
 	#name : #Y2016Day17,
 	#superclass : #Object,
