@@ -61,18 +61,15 @@ Y2016Day16 class >> part2 [
 { #category : #evaluating }
 Y2016Day16 >> expand [
 
-	[ length < limit ] whileTrue: [ "vec := vec , { false } , (vec reverse collect: [ :v | v not ]) ."
-		| offset count |
-		count := 0.
-		offset := length + 1 * 2.
+	[ length < limit ] whileTrue: [
+		| offset |
+		offset :=2 * (length + 1).
 		1 to: length do: [ :i |
 			| j |
 			j := offset - i.
 			j <= limit ifTrue: [ vec at: j put: (vec at: i) not ] ].
 		vec at: length + 1 put: false.
-		length := limit min: length * 2 + 1.
-		count := count + 1 ].
-	"vec := vec copyFrom: 1 to: limit."
+		length := limit min: length * 2 + 1 ].
 	^ self shrink
 ]
 
@@ -110,11 +107,11 @@ Y2016Day16 >> shrink [
 { #category : #converting }
 Y2016Day16 >> toString [
 
+"(Y2016Day16 new: '011') toString >>> '011'"
+
 	| stream |
-	stream := WriteStream on: (String new: length ).
-	1 to: length  do: [ :i |
-		stream nextPut: ((vec at: i)
-				 ifFalse: [ $0 ]
-				 ifTrue: [ $1 ]) ].
+	stream := WriteStream on: (String new: length).
+	1 to: length do: [ :i |
+	stream nextPut: (vec at: i) asInteger asCharacterDigit ].
 	^ stream contents
 ]
