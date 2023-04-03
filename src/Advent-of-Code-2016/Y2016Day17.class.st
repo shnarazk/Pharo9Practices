@@ -101,20 +101,19 @@ Y2016Day17 class >> solve [
 Y2016Day17 class >> solve2 [
 
 	| start stage |
-	self flag: #TODO. "pay attension"
 	FoundGoal := 0.
 	start := self new.
 	start location: 1 @ 1.
 	stage := Set new.
 	stage add: start.
-	[ stage isEmpty ] whileFalse: [ "Transcript show: FoundGoal asString."
+	[ stage isEmpty ] whileFalse: [
 		stage := stage
 			         inject: Set new
-			         into: [ :aSet :each | "Transcript show: each key."
-				         (each neighbars: [ :path |
-					          FoundGoal := FoundGoal max: path size ]) do: [ :next |
-					         aSet add: next ].
-				         aSet ] ].
+			         into: [ :aSet :each | 
+				aSet addAll: 
+				         (each neighbars: [ :found |
+					          FoundGoal := FoundGoal max: found size ]);
+				         yourself ] ].
 	^ FoundGoal
 ]
 
