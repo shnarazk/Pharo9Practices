@@ -1,5 +1,6 @@
 "
 Cuis smalltalkからもってきた。
+See [the puzzle description](https://adventofcode.com/2016/day/12).
 "
 Class {
 	#name : #Day12,
