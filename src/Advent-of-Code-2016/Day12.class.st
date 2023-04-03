@@ -134,7 +134,7 @@ Day12 >> execute: anInstruction [
 ]
 
 { #category : #initialization }
-Day12 >> initialize [ 
+Day12 >> initialize [
 super initialize .
 register := Dictionary new.
 register at: #a put: 0;
