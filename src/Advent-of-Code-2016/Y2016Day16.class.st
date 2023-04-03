@@ -1,5 +1,6 @@
 "
 I was copied from cuis and revised massively not to copy vectors.
+See [the puzzle description](https://adventofcode.com/2016/day/16).
 "
 Class {
 	#name : #Y2016Day16,

@@ -38,5 +38,5 @@ Y2016Day17Test >> testPart1 [
 { #category : #tests }
 Y2016Day17Test >> testPart2 [
 
-	self assert: Y2016Day17 part2 equals: 'gdjjyniy'
+	self assert: Y2016Day17 part2 equals: 578
 ]
