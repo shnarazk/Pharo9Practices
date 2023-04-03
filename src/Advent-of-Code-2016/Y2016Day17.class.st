@@ -84,15 +84,15 @@ Y2016Day17 class >> part2 [
 Y2016Day17 class >> solve [
 
 	| start stage |
+	FoundGoal := nil.
 	start := self new.
 	start location: 1 @ 1.
 	stage := Set new.
 	stage add: start.
 	[ stage isEmpty ] whileFalse: [
 		stage := stage inject: Set new into: [ :aSet :each |
-			     
 			         aSet
-				         addAll: (each neighbars: [ :path | ^ path ]);
+				         addAll: (each neighbars: [ :found | ^ found ]);
 				         yourself ] ].
 	^ nil
 ]
