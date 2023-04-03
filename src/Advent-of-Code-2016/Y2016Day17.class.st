@@ -22,7 +22,8 @@ Class {
 
 { #category : #examples }
 Y2016Day17 class >> example [
-"Y2016Day17 example >>> 'DDUDRLRRUDRD'"
+	"Y2016Day17 example >>> 'DDUDRLRRUDRD'"
+
 	self initialize.
 	"Input := 'hijkl'."
 	"Input := 'ihgpwlah'."
@@ -88,13 +89,11 @@ Y2016Day17 class >> solve [
 	stage := Set new.
 	stage add: start.
 	[ stage isEmpty ] whileFalse: [
-		stage := stage
-			         inject: Set new
-			         into: [ :aSet :each |
-				Transcript show: each path; cr.
-				         aSet
-					         addAll: (each neighbars: [ :path | ^ path ]);
-					         yourself ] ].
+		stage := stage inject: Set new into: [ :aSet :each |
+			     
+			         aSet
+				         addAll: (each neighbars: [ :path | ^ path ]);
+				         yourself ] ].
 	^ nil
 ]
 
@@ -183,15 +182,17 @@ Y2016Day17 >> location: anObject [
 { #category : #accessing }
 Y2016Day17 >> neighbars: aBlockAsFoundGoal [
 
-	| next masks locations |
+	| locations masks |
 	4 @ 4 = location ifTrue: [ ^ aBlockAsFoundGoal value: path ].
-	next := self nextKey.
-	masks := #( 4 2 3 1 ) collect: [ :each | (next at: each) > $a ].
-	locations := location fourNeighbors.
-	^ #(4 2 3 1)
+	locations := location fourNeighbors. "This returns #(right down left up)."
+	locations := #( 4 2 3 1 ) collect: [ :n | locations at: n ].
+	masks := self nextKey asArray collect: [ :each | each > $a ]. "This return up, down, left, and right."
+	^ #( 1 2 3 4 )
 		  select: [ :each |
 			  (masks at: each) and: [
-				  (locations at: each) isInsideRectangle: (1 @ 1 corner: 4 @ 4) ] ]
+				  | loc |
+				  loc := locations at: each.
+				  1 @ 1 <= loc and: [ loc <= (4 @ 4) ] ] ]
 		  thenCollect: [ :each |
 			  self class
 				  newAt: (locations at: each)
@@ -200,7 +201,7 @@ Y2016Day17 >> neighbars: aBlockAsFoundGoal [
 
 { #category : #accessing }
 Y2016Day17 >> nextKey [
-Transcript show: self class input, path; cr.
+
 	^ (MD5 hashMessage: self class input , path) hex copyFrom: 1 to: 4
 ]
 

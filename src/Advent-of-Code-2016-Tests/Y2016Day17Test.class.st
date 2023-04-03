@@ -21,10 +21,12 @@ Y2016Day17Test >> testNextKey [
 	Y2016Day17 input: 'hijkl'.
 
 	self assert: target nextKey equals: 'ced9'.
-	
-target path: 'D'.
-self assert: target nextKey equals: 'f2bc'.
 
+	target path: 'D'.
+	self assert: target nextKey equals: 'f2bc'.
+	
+target path: 'DU'.
+self assert: target nextKey equals: '528e'.
 ]
 
 { #category : #tests }
