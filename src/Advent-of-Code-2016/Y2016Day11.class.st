@@ -262,6 +262,13 @@ currentCost := 0.
 estimatedCost := 0.
 ]
 
+{ #category : #initialization }
+Y2016Day11 >> initializeAs: anIndex [
+
+	code := anIndex.
+	self
+]
+
 { #category : #evaluating }
 Y2016Day11 >> isGoal [ 
 ^code = self class goal
