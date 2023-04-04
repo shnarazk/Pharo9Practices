@@ -1,8 +1,9 @@
 "
 Cuis smalltalkからもってきた。
+See [the puzzle description](https://adventofcode.com/2016/day/12).
 "
 Class {
-	#name : #Day12,
+	#name : #Y2016Day12,
 	#superclass : #Object,
 	#instVars : [
 		'register',
@@ -13,7 +14,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-Day12 class >> part1 [
+Y2016Day12 class >> part1 [
 
 	| code myComputer |
 	code := {
@@ -46,7 +47,7 @@ Day12 class >> part1 [
 ]
 
 { #category : #'instance creation' }
-Day12 class >> part2 [
+Y2016Day12 class >> part2 [
 
 	| code myComputer |
 	code := {
@@ -80,13 +81,13 @@ Day12 class >> part2 [
 ]
 
 { #category : #accessing }
-Day12 >> at: reg put: val [
+Y2016Day12 >> at: reg put: val [
 
 register at: reg put: val.
 ]
 
 { #category : #execution }
-Day12 >> execute: anInstruction [
+Y2016Day12 >> execute: anInstruction [
 	| opCode |
 	opCode := anInstruction at: 1.
 	"Transcript show: opCode."
@@ -134,7 +135,7 @@ Day12 >> execute: anInstruction [
 ]
 
 { #category : #initialization }
-Day12 >> initialize [
+Y2016Day12 >> initialize [ 
 super initialize .
 register := Dictionary new.
 register at: #a put: 0;
@@ -144,14 +145,14 @@ at: #d put: 0.
 ]
 
 { #category : #actions }
-Day12 >> load: aProgram [
+Y2016Day12 >> load: aProgram [
 
 code := aProgram .
 pc := 1.
 ]
 
 { #category : #execution }
-Day12 >> start [
+Y2016Day12 >> start [
 
 	| end |
 	pc := 1.
