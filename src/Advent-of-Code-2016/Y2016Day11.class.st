@@ -117,19 +117,14 @@ Y2016Day11 >> adjacentFloors [
 { #category : #controlling }
 Y2016Day11 >> allObjectPairsOn: floor do: aBlock [
 	"all but elevator"
-	| objects |
-	objects := self class numberOfObjects .
-	2
-		to: objects
-		do: [ :i |
-			(self floorOfObject: i) = floor ifTrue: [
-				i
-					to: objects
-					do: [ :j |
-						(self floorOfObject: j) = floor ifTrue: [
-							aBlock
-								value: i
-								value: j ]]]].
+
+	| indices numSelected |
+	indices := (2 to: self class numberOfObjects) select: [ :i |
+		           (self floorOfObject: i) = floor ].
+	numSelected := indices size.
+	^ indices doWithIndex: [ :object :n | 
+		  n to: numSelected do: [ :i |
+		  aBlock value: object value: (indices at: i) ] ]
 ]
 
 { #category : #accessing }
@@ -147,18 +142,21 @@ Y2016Day11 >> code: anObject [
 { #category : #evaluating }
 Y2016Day11 >> cost [
 
-	| visited toCheck depth |
-	depth := 0.
-	visited := Set new.
+	| visited toCheck |
+	visited := IdentitySet with: self code.
 	toCheck := Heap with: self.
 	[ toCheck isEmpty ] whileFalse: [
-		| state |
+		| state cands |
 		state := toCheck removeFirst.
 		state isGoal ifTrue: [ ^ state currentCost ].
-		(visited includes: state code) ifFalse: [
-			visited add: state code.
-			depth := depth max: state currentCost.
-			toCheck addAll: state neighborStates ] ].
+		cands := state neighborStates reject: [ :cand |
+			         visited includes: cand code ].
+		visited addAll: (cands collect: [ :s | s code ]).
+		toCheck addAll: cands
+		"state neighborStates do: [ :newState |
+			(visited includes: newState code) ifFalse: [
+				visited add: newState code.
+				toCheck add: newState ] ]" ].
 	self error: 'wrong calculation'
 ]
 
