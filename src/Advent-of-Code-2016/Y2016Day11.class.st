@@ -1,5 +1,5 @@
 "
-Advent of Code 2016 part11.
+See [Advent of Code 2016 part11](https://adventofcode.com/2016/day/11).
 
 "
 Class {
@@ -26,28 +26,9 @@ Y2016Day11 class >> goal [
 ]
 
 { #category : #accessing }
-Y2016Day11 class >> goal: anObject [
-
-	Goal := anObject
-]
-
-{ #category : #accessing }
 Y2016Day11 class >> kinds [
 
 	^ Kinds
-]
-
-{ #category : #accessing }
-Y2016Day11 class >> kinds: anObject [
-
-	Kinds := anObject
-]
-
-{ #category : #'instance creation' }
-Y2016Day11 class >> newAs: aCode [
-| instance |
-instance := self new. instance initializeAs: aCode.
-^instance 
 ]
 
 { #category : #accessing }
@@ -56,36 +37,24 @@ Y2016Day11 class >> numberOfObjects [
 	^ NumberOfObjects
 ]
 
-{ #category : #accessing }
-Y2016Day11 class >> numberOfObjects: anObject [
-
-	NumberOfObjects := anObject
-]
-
 { #category : #'instance creation' }
 Y2016Day11 class >> part1 [
-
-
+|solver|
 	self setKinds: 5.
-	^(self represents: { 0. 0. 0. 0. 1. 2. 1. 1. 1. 1 }) cost
-
+	solver := self new.
+	solver  represents: { 0. 0. 0. 0. 1. 2. 1. 1. 1. 1 }.
+	^solver cost
 ]
 
 { #category : #'instance creation' }
 Y2016Day11 class >> part2 [
-"Y2016Day11 part2 >>> 61"
+	"Y2016Day11 part2 >>> 61"
 
+	| solver |
 	self setKinds: 7.
-	^ (self represents: { 0. 0. 0. 0. 1. 2. 1. 1. 1. 1. 0. 0. 0. 0 })
-		  cost
-]
-
-{ #category : #'instance creation' }
-Y2016Day11 class >> represents: aVec [
-
-| code |
-code := aVec inject: 0 into: [ :total :val | (total * 4) + val ] .
-^self newAs: code 
+	solver := self new.
+	solver represents: { 0. 0. 0. 0. 1. 2. 1. 1. 1. 1. 0. 0. 0. 0 }.
+	^ solver cost
 ]
 
 { #category : #initialization }
@@ -141,22 +110,17 @@ Y2016Day11 >> code: anObject [
 
 { #category : #evaluating }
 Y2016Day11 >> cost [
-
+"The main search code"
 	| visited toCheck |
 	visited := IdentitySet with: self code.
 	toCheck := Heap with: self.
-	[ toCheck isEmpty ] whileFalse: [
-		| state cands |
-		state := toCheck removeFirst.
+	toCheck untilEmpty: [ :state |
 		state isGoal ifTrue: [ ^ state currentCost ].
-		cands := state neighborStates reject: [ :cand |
-			         visited includes: cand code ].
-		visited addAll: (cands collect: [ :s | s code ]).
-		toCheck addAll: cands
-		"state neighborStates do: [ :newState |
-			(visited includes: newState code) ifFalse: [
-				visited add: newState code.
-				toCheck add: newState ] ]" ].
+		state neighborStates
+			reject: [ :cand | visited includes: cand code ]
+			thenDo: [ :s |
+				visited add: s code.
+				toCheck add: s ] ].
 	self error: 'wrong calculation'
 ]
 
@@ -260,13 +224,6 @@ currentCost := 0.
 estimatedCost := 0.
 ]
 
-{ #category : #initialization }
-Y2016Day11 >> initializeAs: anIndex [
-
-	code := anIndex.
-	self
-]
-
 { #category : #evaluating }
 Y2016Day11 >> isGoal [ 
 ^code = self class goal
@@ -286,36 +243,32 @@ Y2016Day11 >> isSafe [
 
 { #category : #'instance creation' }
 Y2016Day11 >> moveTo: floor with: anObjest and: anotherObject [
+	"make a new instance"
+
 	| state |
-	state := self class new initializeAs: code.
-	state floorOfElevator: floor.
+	state := self class new.
 	state
-		floorOfObject: anObjest
-		to: floor.
-	state
-		floorOfObject: anotherObject
-		to: floor.
-	state currentCost: self currentCost + 1.
-	^ state.
+		code: code;
+		floorOfElevator: floor;
+		floorOfObject: anObjest to: floor;
+		floorOfObject: anotherObject to: floor;
+		currentCost: currentCost + 1.
+	^ state
 ]
 
 { #category : #evaluating }
 Y2016Day11 >> neighborStates [
-	"the main logic"
+	"I must return a set without duplicated elements."
+
 	| floor result |
 	result := Set new.
 	floor := self floorOfElevator.
-	self
-		allObjectPairsOn: floor
-		do: [ :i :j |
-			self adjacentFloors do: [ :f | | newState |
-				newState := self
-					moveTo: f
-					with: i
-					and: j.
-				newState ifSafe: [ :s |
-					result add: s ]]].
-	^ result.
+	self allObjectPairsOn: floor do: [ :i :j |
+		self adjacentFloors do: [ :f |
+			| newState |
+			newState := self moveTo: f with: i and: j.
+			newState ifSafe: [ :s | result add: s ] ] ].
+	^ result
 ]
 
 { #category : #accessing }
@@ -327,4 +280,11 @@ Y2016Day11 >> objectIndexOfChip: k [
 Y2016Day11 >> objectIndexOfGenerator: k [
 
 	^ k * 2
+]
+
+{ #category : #initialization }
+Y2016Day11 >> represents: aVec [
+
+	code := aVec inject: 0 into: [ :total :val | total * 4 + val ].
+
 ]

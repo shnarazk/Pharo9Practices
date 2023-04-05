@@ -14,12 +14,15 @@ Class {
 
 { #category : #running }
 Y2016Day11Test >> setUp [
-super setUp .
+
+	super setUp.
 
 	Y2016Day11 setKinds: 2.
 	aStart := Y2016Day11 new.
-	aGoal := Y2016Day11 new initializeAs: 1023.
-	example := Y2016Day11 represents: { 1. 0. 2. 0 }
+	aGoal := Y2016Day11 new.
+	aGoal code: 1023.
+	example := Y2016Day11 new.
+	example represents: { 1. 0. 2. 0 }
 ]
 
 { #category : #tests }
