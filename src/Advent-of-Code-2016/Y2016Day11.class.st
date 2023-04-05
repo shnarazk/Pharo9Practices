@@ -74,7 +74,7 @@ Y2016Day11 >> <= other [
 	^ estimatedCost <= other estimatedCost 
 ]
 
-{ #category : #computing }
+{ #category : #enumerating }
 Y2016Day11 >> adjacentFloors [
 	| floor |
 	floor := self floorOfElevator.
@@ -83,7 +83,7 @@ Y2016Day11 >> adjacentFloors [
 	^ {floor - 1 . floor + 1}.
 ]
 
-{ #category : #controlling }
+{ #category : #enumerating }
 Y2016Day11 >> allObjectPairsOn: floor do: aBlock [
 	"all but elevator"
 
@@ -204,13 +204,13 @@ floor > 1 ifTrue: [ code := code bitOr: mask ].
 	floor odd ifTrue: [ code := code bitOr: mask ]
 ]
 
-{ #category : #controlling }
+{ #category : #enumerating }
 Y2016Day11 >> forAllKinds: aBlock [
 
 1 to: self class kinds do: aBlock 
 ]
 
-{ #category : #evaluating }
+{ #category : #testing }
 Y2016Day11 >> ifSafe: aBlock [
 
 	self isSafe ifTrue: [ aBlock value: self ]
@@ -224,12 +224,12 @@ currentCost := 0.
 estimatedCost := 0.
 ]
 
-{ #category : #evaluating }
+{ #category : #testing }
 Y2016Day11 >> isGoal [ 
 ^code = self class goal
 ]
 
-{ #category : #evaluating }
+{ #category : #testing }
 Y2016Day11 >> isSafe [
 
 	self forAllKinds: [ :k |
@@ -256,7 +256,7 @@ Y2016Day11 >> moveTo: floor with: anObjest and: anotherObject [
 	^ state
 ]
 
-{ #category : #evaluating }
+{ #category : #enumerating }
 Y2016Day11 >> neighborStates [
 	"I must return a set without duplicated elements."
 
