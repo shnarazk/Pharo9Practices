@@ -181,12 +181,14 @@ Y2016Day11 >> floorOfGenerator: kind [
 
 { #category : #accessing }
 Y2016Day11 >> floorOfObject: anObject [
-| mask result |
-mask := (self class numberOfObjects - anObject ) * 2.
-mask := 2 << mask.
-result := (code bitAnd: mask) > 0 ifTrue:  [2 ] ifFalse: [ 0 ].
-mask := mask >> 1.
-(code bitAnd: mask) > 0 ifTrue:  [^result + 1] ifFalse: [ ^result  ]
+
+	| mask result |
+	mask := self class numberOfObjects - anObject * 2.
+	mask := 2 << mask.
+	result := ((code bitAnd: mask) > 0) asInteger * 2.
+	mask := mask >> 1.
+	^ ((code bitAnd: mask) > 0) asInteger + result
+
 ]
 
 { #category : #update }

@@ -132,5 +132,6 @@ self assert: Y2016Day11 part1 equals: 37
 { #category : #tests }
 Y2016Day11Test >> testPart2 [
 
+	self timeLimit: (Duration seconds:  200).
 	self assert: Y2016Day11 part2 equals: 61
 ]
