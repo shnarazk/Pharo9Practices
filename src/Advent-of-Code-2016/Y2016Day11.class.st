@@ -76,11 +76,9 @@ Y2016Day11 >> <= other [
 
 { #category : #enumerating }
 Y2016Day11 >> adjacentFloors [
-	| floor |
-	floor := self floorOfElevator.
-	floor = 0 ifTrue: [ ^ {1} ].
-	floor = 3 ifTrue: [ ^ {2} ].
-	^ {floor - 1 . floor + 1}.
+
+	^ #( #( 1 ) #( 0 2 ) #( 1 3 ) #( 2 ) ) at: self floorOfElevator + 1
+
 ]
 
 { #category : #enumerating }
