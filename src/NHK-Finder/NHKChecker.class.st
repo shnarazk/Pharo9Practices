@@ -17,12 +17,8 @@ Class {
 	#superclass : #SpApplication,
 	#instVars : [
 		'json',
-		'currentProgram',
-		'g1',
-		'g2',
-		'e1',
-		'e2',
-		'channels'
+		'channels',
+		'channel'
 	],
 	#classVars : [
 		'ApiKey'
@@ -47,6 +43,14 @@ NHKChecker class >> defaultSpec [
 
 	^ SpBoxLayout newTopToBottom
 		  
+]
+
+{ #category : #running }
+NHKChecker class >> run [
+
+	^ self new
+		  run;
+		  yourself
 ]
 
 { #category : #running }
