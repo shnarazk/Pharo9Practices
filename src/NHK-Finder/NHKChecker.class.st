@@ -108,18 +108,20 @@ NHKChecker >> json [
 { #category : #updating }
 NHKChecker >> loadJSON [
 
-	| apiKey loaded |
+	| apiKey url loaded |
+	channel ifNil: [ ^ self ].
 	apiKey := self class apiKey.
 	apiKey ifNil: [ ^ self ].
-	loaded := ZnClient new get:
-		          'https://api.nhk.or.jp/v2/pg/now/400/g1.json?key='
-		          , apiKey.
+	url := 'https://api.nhk.or.jp/v2/pg/now/400/' , channel , '.json?key=' , apiKey.
+	loaded := ZnClient new get: url.
 	json := STON reader on: loaded readStream.
-	channels := json next at: 'nowonair_list'.
+	channels := json next at: 'nowonair_list'
+	"
 	g1 := channels at: 'g1' ifAbsent: [ nil ].
 	g2 := channels at: 'g2' ifAbsent: [ nil ].
 	e1 := channels at: 'e1' ifAbsent: [ nil ].
 	e2 := channels at: 'e2' ifAbsent: [ nil ]
+	"
 ]
 
 { #category : #accessing }
