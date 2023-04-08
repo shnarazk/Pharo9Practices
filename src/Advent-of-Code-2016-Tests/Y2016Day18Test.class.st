@@ -19,3 +19,9 @@ Y2016Day18Test >> testPart1 [
 
 	self assert: Y2016Day18 part1 equals: 1989
 ]
+
+{ #category : #tests }
+Y2016Day18Test >> testPart2 [
+
+	self assert: Y2016Day18 part2 equals: 19999894
+]
