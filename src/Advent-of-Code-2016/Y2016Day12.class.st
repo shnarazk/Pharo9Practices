@@ -88,50 +88,56 @@ register at: reg put: val.
 
 { #category : #execution }
 Y2016Day12 >> execute: anInstruction [
-	| opCode |
+
+	| opCode  |
 	opCode := anInstruction at: 1.
-	"Transcript show: opCode."
-	opCode = #cpy ifTrue: [ | from to val |
-		from := anInstruction at: 2.
-		to := anInstruction at: 3.
-		val := from isNumber
-			ifTrue: [ from ]
-			ifFalse: [ register at: from ].
-		register
-			at: to
-			put: val.
-		pc := pc + 1.
-		^ self ].
-	opCode = #inc ifTrue: [ | name val |
-		name := anInstruction at: 2.
-		val := register at: name.
-		register
-			at: name
-			put: val + 1.
-		pc := pc + 1.
-		^ self ].
-	opCode = #dec ifTrue: [ | name val |
-		name := anInstruction at: 2.
-		val := register at: name.
-		register
-			at: name
-			put: val - 1.
-		pc := pc + 1.
-		^ self ].
-	opCode = #jnz ifTrue: [ | op1 cond op2 offset |
-		op1 := anInstruction at: 2.
-		cond := op1 isNumber
-			ifTrue: [ op1 ]
-			ifFalse: [ register at: op1 ].
-		op2 := anInstruction at: 3.
-		offset := op2 isNumber
-			ifTrue: [ op2 ]
-			ifFalse: [ register at: op2 ].
-		pc := pc +
-			(cond = 0
-				ifTrue: [ 1 ]
-				ifFalse: [ offset ]).
-		^ self ].
+	opCode = #cpy ifTrue: [ self executeCpy: anInstruction ].
+	opCode = #inc ifTrue: [ self executeInc: anInstruction ].
+	opCode = #dec ifTrue: [ self executeDec: anInstruction ].
+	opCode = #jnz ifTrue: [ self executeJnz: anInstruction ]
+]
+
+{ #category : #execution }
+Y2016Day12 >> executeCpy: anInstruction [
+
+	register at: (anInstruction at: 3) put: (self fetch: (anInstruction at: 2)).
+	pc := pc + 1.
+]
+
+{ #category : #execution }
+Y2016Day12 >> executeDec: anInstruction [
+
+	| op1 |
+	op1 := anInstruction at: 2.
+	register at: op1 put: (register at: op1) - 1.
+	pc := pc + 1
+]
+
+{ #category : #execution }
+Y2016Day12 >> executeInc: anInstruction [
+
+	| op1 |
+	op1 := anInstruction at: 2.
+	register at: op1 put: (register at: op1) + 1.
+	pc := pc + 1
+]
+
+{ #category : #execution }
+Y2016Day12 >> executeJnz: anInstruction [
+
+	pc := pc +( (self fetch: (anInstruction at: 2)) = 0
+		  ifTrue: [ 1 ]
+		  ifFalse: [ self fetch: (anInstruction at: 3) ])
+]
+
+{ #category : #execution }
+Y2016Day12 >> fetch: operand [
+
+
+	^ operand isNumber
+		       ifTrue: [ operand ]
+		       ifFalse: [ register at: operand ].
+	
 ]
 
 { #category : #initialization }
@@ -158,10 +164,9 @@ Y2016Day12 >> start [
 	pc := 1.
 	end := code size.
 	[ end < pc ] whileFalse: [
-		| instruction oldPc |
+		| oldPc |
 		oldPc := pc.
-		instruction := code at: pc.
-		self execute: instruction.
+		self execute: (code at: pc).
 		oldPc = pc ifTrue: [ self error: 'Not uploaded PC' ] ].
-	^register at: #a
+	^ register at: #a
 ]
