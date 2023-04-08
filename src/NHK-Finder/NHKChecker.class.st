@@ -60,14 +60,29 @@ self new start.
 ]
 
 { #category : #accessing }
-NHKChecker >> channels [
+NHKChecker >> channel [
 
-	^ channels
+	^ channel
 ]
 
 { #category : #accessing }
-NHKChecker >> currentProgram [
-^ currentProgram 
+NHKChecker >> channel: anObject [
+
+	channel := anObject.
+	self loadJSON .
+]
+
+{ #category : #accessing }
+NHKChecker >> channelContent: aChannel [
+
+	aChannel ifNil: [ ^ OrderedCollection new ].
+	^ (channels at: aChannel) value asOrderedCollection 
+]
+
+{ #category : #accessing }
+NHKChecker >> channels [
+
+	^ channels
 ]
 
 { #category : #initialization }
@@ -105,6 +120,13 @@ NHKChecker >> loadJSON [
 	g2 := channels at: 'g2' ifAbsent: [ nil ].
 	e1 := channels at: 'e1' ifAbsent: [ nil ].
 	e2 := channels at: 'e2' ifAbsent: [ nil ]
+]
+
+{ #category : #accessing }
+NHKChecker >> selectedContent [
+
+	channel ifNil: [ ^ OrderedCollection new ].
+	^ (channels at: channel) value asOrderedCollection
 ]
 
 { #category : #running }
