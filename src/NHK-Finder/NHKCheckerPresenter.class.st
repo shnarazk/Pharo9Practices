@@ -6,80 +6,78 @@ Class {
 	#superclass : #SpPresenter,
 	#instVars : [
 		'listPresenter',
-		'presenter'
+		'buttonLayout',
+		'fetchG1',
+		'fetchE1',
+		'fetchR1',
+		'fetchR2',
+		'fetchR3'
 	],
 	#category : #'NHK-Finder'
 }
 
 { #category : #initialization }
+NHKCheckerPresenter >> connectPresenters [
+
+	fetchG1 action: [
+		application channel: 'g1'.
+		self updatePresenter ].
+	fetchE1 action: [ application channel: 'e1'.
+		self updatePresenter ].
+	fetchR1 action: [ application channel: 'r1'.
+		self updatePresenter ].
+	fetchR2 action: [ application channel: 'r2'.
+		self updatePresenter ].
+	fetchR3 action: [ application channel: 'r3'.
+		self updatePresenter ]
+]
+
+{ #category : #initialization }
 NHKCheckerPresenter >> initializePresenters [
 
-	^ self initializePresentersNew 
-]
 
-{ #category : #initialization }
-NHKCheckerPresenter >> initializePresentersNew [
-| update |
 	listPresenter := self newTable
-		                 items:
-			                 (application channels at: 'g1') values
-				                 asOrderedCollection;
+		                 items: application selectedContent;
 		                 addColumn: ((SpStringTableColumn
-				                   title: 'clock'
+				                   title: '開始時刻'
 				                   evaluated: [ :program |
-					                   ((program at: 'start_time') allButFirst: 11)
-						                   first: 5 ]) width: 40);
-		                 addColumn: ((SpStringTableColumn
-				                   title: 'Title'
-				                   evaluated: [ :program | program at: 'title' ])
-				                  width: 120);
-		                 addColumn: (SpStringTableColumn
-				                  title: 'contents'
+					                   ((program at: 'start_time') allButFirst: 11) first: 5 ]) width: 80);
+		                 addColumn:
+			                 ((SpStringTableColumn
+				                   title: '番組タイトル'
+				                   evaluated: [ :program | program at: 'title' ]) width: 200);
+		                 addColumn:
+			                 (SpStringTableColumn
+				                  title: '内容'
 				                  evaluated: [ :program | program at: 'subtitle' ]);
 		                 yourself.
-	"
-presenter  := SpPresenter new.
-presenter  layout: SpPanedLayout newTopToBottom .
-presenter  layout add: s newButton ."
-	self layout: SpPanedLayout newTopToBottom.
-	self layout add: listPresenter.
-	update := self newButton .
-	update label: 'update'.
-	self layout add: update 
-	"
-	self layout: (SpBoxLayout newVertical
+	fetchG1 := self newButton
+		           label: 'G1';
+		           yourself.
+	fetchE1 := self newButton
+		           label: 'E1';
+		           yourself.
+	fetchR1 := self newButton
+		           label: 'R1';
+		           yourself.
+	fetchR2 := self newButton
+		           label: 'R2';
+		           yourself.
+	fetchR3 := self newButton
+		           label: 'NHK FM';
+		           yourself.
+	buttonLayout := SpBoxLayout newLeftToRight
+		                add: fetchG1;
+		                add: fetchE1;
+		                add: fetchR1;
+		                add: fetchR2;
+		                add: fetchR3;
+		                yourself.
+	self layout: (SpBoxLayout newTopToBottom
 			 spacing: 5;
-			 add: listPresenter;
+			 add: listPresenter expand: true;
+			 add: buttonLayout expand: false;
 			 yourself)
-"
-]
-
-{ #category : #initialization }
-NHKCheckerPresenter >> initializePresentersOld [
-
-	presenter := SpPresenter new.
-	listPresenter := self newTable
-		                 items:
-			                 (application channels at: 'g1') values
-				                 asOrderedCollection;
-		                 addColumn: ((SpStringTableColumn
-				                   title: 'clock'
-				                   evaluated: [ :program |
-					                   ((program at: 'start_time') allButFirst: 11)
-						                   first: 5 ]) width: 40);
-		                 addColumn: ((SpStringTableColumn
-				                   title: 'Title'
-				                   evaluated: [ :program | program at: 'title' ])
-				                  width: 120);
-		                 addColumn: (SpStringTableColumn
-				                  title: 'contents'
-				                  evaluated: [ :program | program at: 'subtitle' ]);
-		                 yourself.
-
-	self layout: (SpBoxLayout newVertical
-			 spacing: 5;
-			 add: listPresenter;
-			 "add: SpButtonAdapterTest new;"yourself)
 ]
 
 { #category : #initialization }
@@ -91,6 +89,7 @@ NHKCheckerPresenter >> initializeWindow: aWindowPresenter [
 ]
 
 { #category : #initialization }
-NHKCheckerPresenter >> updatePresenter [ 
-	listPresenter items: (application channels at: 'g1') values asOrderedCollection .
+NHKCheckerPresenter >> updatePresenter [
+
+	listPresenter items: application selectedContent
 ]

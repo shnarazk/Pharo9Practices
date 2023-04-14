@@ -17,12 +17,8 @@ Class {
 	#superclass : #SpApplication,
 	#instVars : [
 		'json',
-		'currentProgram',
-		'g1',
-		'g2',
-		'e1',
-		'e2',
-		'channels'
+		'channels',
+		'channel'
 	],
 	#classVars : [
 		'ApiKey'
@@ -50,20 +46,43 @@ NHKChecker class >> defaultSpec [
 ]
 
 { #category : #running }
+NHKChecker class >> run [
+
+	^ self new
+		  run;
+		  yourself
+]
+
+{ #category : #running }
 NHKChecker class >> run: aKey [
  self apiKey: aKey.
 self new start.
 ]
 
 { #category : #accessing }
-NHKChecker >> channels [
+NHKChecker >> channel [
 
-	^ channels
+	^ channel
 ]
 
 { #category : #accessing }
-NHKChecker >> currentProgram [
-^ currentProgram 
+NHKChecker >> channel: anObject [
+
+	channel := anObject.
+	self loadJSON .
+]
+
+{ #category : #accessing }
+NHKChecker >> channelContent: aChannel [
+
+	aChannel ifNil: [ ^ OrderedCollection new ].
+	^ (channels at: aChannel) value asOrderedCollection 
+]
+
+{ #category : #accessing }
+NHKChecker >> channels [
+
+	^ channels
 ]
 
 { #category : #initialization }
@@ -89,18 +108,27 @@ NHKChecker >> json [
 { #category : #updating }
 NHKChecker >> loadJSON [
 
-	| apiKey loaded |
+	| apiKey url loaded |
+	channel ifNil: [ ^ self ].
 	apiKey := self class apiKey.
 	apiKey ifNil: [ ^ self ].
-	loaded := ZnClient new get:
-		          'https://api.nhk.or.jp/v2/pg/now/400/g1.json?key='
-		          , apiKey.
+	url := 'https://api.nhk.or.jp/v2/pg/now/400/' , channel , '.json?key=' , apiKey.
+	loaded := ZnClient new get: url.
 	json := STON reader on: loaded readStream.
-	channels := json next at: 'nowonair_list'.
+	channels := json next at: 'nowonair_list'
+	"
 	g1 := channels at: 'g1' ifAbsent: [ nil ].
 	g2 := channels at: 'g2' ifAbsent: [ nil ].
 	e1 := channels at: 'e1' ifAbsent: [ nil ].
 	e2 := channels at: 'e2' ifAbsent: [ nil ]
+	"
+]
+
+{ #category : #accessing }
+NHKChecker >> selectedContent [
+
+	channel ifNil: [ ^ OrderedCollection new ].
+	^ (channels at: channel) value asOrderedCollection
 ]
 
 { #category : #running }
