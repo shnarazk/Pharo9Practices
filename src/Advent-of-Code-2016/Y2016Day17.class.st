@@ -137,7 +137,9 @@ Y2016Day17 >> location: anObject [
 Y2016Day17 >> neighbars: aBlockAsFoundGoal [
 
 	| locations masks |
-	4 @ 4 = location ifTrue: [ aBlockAsFoundGoal value: path. ^#() ].
+	4 @ 4 = location ifTrue: [
+		aBlockAsFoundGoal value: path.
+		^ #(  ) ].
 	locations := location fourNeighbors. "This returns #(right down left up)."
 	locations := #( 4 2 3 1 ) collect: [ :n | locations at: n ].
 	masks := self nextKey asArray collect: [ :each | each > $a ]. "This return up, down, left, and right."
@@ -146,7 +148,8 @@ Y2016Day17 >> neighbars: aBlockAsFoundGoal [
 			  (masks at: each) and: [
 				  | loc |
 				  loc := locations at: each.
-				  1 @ 1 <= loc and: [ loc <= (4 @ 4) ] ] ]
+				  loc between: 1 @ 1 and: 4 @ 4
+	 ] ]
 		  thenCollect: [ :each |
 			  self class
 				  newAt: (locations at: each)

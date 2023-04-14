@@ -195,7 +195,7 @@ Y2016Day11 >> floorOfObject: anObject [
 Y2016Day11 >> floorOfObject: anObject to: floor [
 
 	| mask  |
-	mask := self class numberOfObjects - anObject * 2.
+	mask := 2 * (self class numberOfObjects - anObject).
 	mask := 2 << mask.
       code := code bitClear: mask.
 floor > 1 ifTrue: [ code := code bitOr: mask ].
