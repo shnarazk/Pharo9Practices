@@ -18,6 +18,8 @@ Let's learn [Pharo](https://github.com/pharo-project/pharo), a descendant of Sma
 |  - on Cuis      |           2.98 |
 | `PiFinder`      |        give up |
 | Python3.10      |          16.00 |
+| GDscript(4.0) typed |       8.21 |
+| GDscript(4.0 no type hints | 15.56 |
 | Scratch(turbo mode) |     227.26 |
 | pi3.bqn (CBQN) |            1.48 |
 |  pi-rust(float) |           0.09 |
@@ -32,6 +34,7 @@ Let's learn [Pharo](https://github.com/pharo-project/pharo), a descendant of Sma
 | - on Cuis       |          29.33 |
 | `PiFinder`      |      crashed   |
 | Python3.10      |         168.67 |
+| GDscript(4.0) typed |    crashed |
 | Scratch(turbo mode) | don't know |
 | pi3.bqn (CBQN)  |  out of memory |
 |  pi-rust(float) |           0.62 |
