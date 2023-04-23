@@ -41,4 +41,8 @@ Let's learn [Pharo](https://github.com/pharo-project/pharo), a descendant of Sma
 
 
 ------
+Scratch
 ![](https://user-images.githubusercontent.com/997855/227437677-6d08cb28-ac92-49fd-8347-900d551b84cb.png)
+
+[GDscript](https://godotengine.org)
+![](https://user-images.githubusercontent.com/997855/233822033-291e8ae7-2be0-442b-b7ff-7150911284a3.png)
