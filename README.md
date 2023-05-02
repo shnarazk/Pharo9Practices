@@ -21,9 +21,10 @@ Let's learn [Pharo](https://github.com/pharo-project/pharo), a descendant of Sma
 | GDscript(4.0) typed |       8.21 |
 | GDscript(4.0 no type hints | 15.56 |
 | Scratch(turbo mode) |     227.26 |
-| [pi3.bqn](https://github.com/shnarazk/learn-bqn/blob/main/pi3.bqn) (CBQN) |   1.48 |
-| [pi4.bqn](https://github.com/shnarazk/learn-bqn/blob/main/pi4.bqn) (CBQN) |   3.05 |
-| [pi5.bqn](https://github.com/shnarazk/learn-bqn/blob/main/pi5.bqn) (CBQN) |   2.96 |
+| [pi3.bqn](https://github.com/shnarazk/learn-bqn/blob/main/pi-benchmark/pi3.bqn) (CBQN) |   1.48 |
+| [pi4.bqn](https://github.com/shnarazk/learn-bqn/blob/main/pi-benchmark/pi4.bqn) (CBQN) |   3.05 |
+| [pi5.bqn](https://github.com/shnarazk/learn-bqn/blob/main/pi-benchmark/pi5.bqn) (CBQN) |   2.96 |
+| [pi10.bqn](https://github.com/shnarazk/learn-bqn/blob/main/pi-benchmark/pi10.bqn) (CBQN)|  0.11 |
 |  pi-rust(float) |           0.09 |
 
 ### 1_000_000_000 terms
@@ -39,8 +40,9 @@ Let's learn [Pharo](https://github.com/pharo-project/pharo), a descendant of Sma
 | GDscript(4.0) typed |    crashed |
 | Scratch(turbo mode) | don't know |
 | pi3.bqn (CBQN)  |  out of memory |
-| [pi4.bqn](https://github.com/shnarazk/learn-bqn/blob/main/pi4.bqn) (CBQN) |  31.13  |
-| [pi5.bqn](https://github.com/shnarazk/learn-bqn/blob/main/pi5.bqn) (CBQN) |  29.57  |
+| [pi4.bqn](https://github.com/shnarazk/learn-bqn/blob/main/pi-benchmark/pi4.bqn) (CBQN) |  31.13  |
+| [pi5.bqn](https://github.com/shnarazk/learn-bqn/blob/main/pi-benchmark/pi5.bqn) (CBQN) |  29.57  |
+| [pi10.bqn](https://github.com/shnarazk/learn-bqn/blob/main/pi-benchmark/pi10.bqn) (CBQN)|  1.04  |
 |  pi-rust(float) |           0.62 |
 
 
