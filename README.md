@@ -13,7 +13,8 @@ Let's learn a descendant of Smalltalk.
 | Python3.10      |          16.00 |
 | Scratch(turbo mode) |     227.26 |
 | pi3.bqn (CBQN) |            1.48 |
-|  pi-rust(float) |           0.09 |
+|  pi-rust(float) |  CPU time 0.09 |
+| pi-rust(async/await w/ tokio, 4 core) | wall-clock 0.013 |
 
 ### 1_000_000_000 terms
 
@@ -25,4 +26,5 @@ Let's learn a descendant of Smalltalk.
 | Python3.10      |         168.67 |
 | Scratch(turbo mode) | don't know |
 | pi3.bqn (CBQN)  |  out of memory |
-|  pi-rust(float) |           0.62 |
+|  pi-rust(float) |  CPU time 0.62 |
+| pi-rust(async/await w/ tokio; 4 core) | wall-clock 0.136 |
