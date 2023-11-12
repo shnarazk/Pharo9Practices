@@ -44,7 +44,7 @@ Let's learn [Pharo](https://github.com/pharo-project/pharo), a descendant of Sma
 | [pi5.bqn](https://github.com/shnarazk/learn-bqn/blob/main/pi-benchmark/pi5.bqn) (CBQN) |  29.57  |
 | [pi10.bqn](https://github.com/shnarazk/learn-bqn/blob/main/pi-benchmark/pi10.bqn) (CBQN)|  1.04  |
 |  pi-rust(float) |           0.62 |
-
+| Swift 5.9      |           1.08  |
 
 ------
 ## Scratch
