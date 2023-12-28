@@ -7,12 +7,13 @@ $$
 
 "
 Class {
-	#name : #PiFinderFloat,
-	#superclass : #PiFinder,
-	#category : #'Pi Finder'
+	#name : 'PiFinderFloat',
+	#superclass : 'PiFinder',
+	#category : 'Pi Finder',
+	#package : 'Pi Finder'
 }
 
-{ #category : #stepping }
+{ #category : 'stepping' }
 PiFinderFloat >> step [
 	"Compute a new term and accumulate it into currSum."
 

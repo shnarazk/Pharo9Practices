@@ -8,19 +8,34 @@ $$
 
 "
 Class {
-	#name : #PiFinderFloat3,
-	#superclass : #PiFinderFloat2,
-	#category : #'Pi Finder'
+	#name : 'PiFinderFloat3',
+	#superclass : 'PiFinderFloat2',
+	#category : 'Pi Finder',
+	#package : 'Pi Finder'
 }
 
-{ #category : #initialization }
+{ #category : 'instance creation' }
+PiFinderFloat3 class >> runTo: pairs [
+
+	| denominator currSum |
+	denominator := -1.
+	currSum := 0.
+	pairs timesRepeat: [
+		| tmp |
+		denominator := denominator + 4.
+		tmp := denominator asFloat.
+		currSum := currSum + (2.0 / (tmp * (tmp - 2.0))) ].
+	^ 4.0 * currSum
+]
+
+{ #category : 'initialization' }
 PiFinderFloat3 >> initialize [
 super initialize .
 	currSum := 0.
 	denominator := -1
 ]
 
-{ #category : #stepping }
+{ #category : 'stepping' }
 PiFinderFloat3 >> step [
 	"Compute a new term and accumulate it into currSum."
 

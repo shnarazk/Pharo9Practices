@@ -1,1 +1,1 @@
-Package { #name : #'Pi Finder' }
+Package { #name : 'Pi Finder' }

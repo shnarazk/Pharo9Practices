@@ -23,17 +23,18 @@ PiFinder runTo: 200000
 ```
 "
 Class {
-	#name : #PiFinder,
-	#superclass : #Object,
+	#name : 'PiFinder',
+	#superclass : 'Object',
 	#instVars : [
 		'currSum',
 		'denominator',
 		'adding'
 	],
-	#category : #'Pi Finder'
+	#category : 'Pi Finder',
+	#package : 'Pi Finder'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PiFinder class >> runTo: limit [
 
 	| pf |
@@ -42,20 +43,20 @@ PiFinder class >> runTo: limit [
 	^ pf pi
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PiFinder >> initialize [ 
  currSum := 1.
  denominator := 3.
  adding := false.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PiFinder >> pi [
 
 	^ (currSum * 4) asFloat
 ]
 
-{ #category : #stepping }
+{ #category : 'stepping' }
 PiFinder >> step [
 
 	"Compute a new term and accumulate it into currSum."

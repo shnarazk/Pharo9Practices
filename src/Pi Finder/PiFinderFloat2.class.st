@@ -10,21 +10,22 @@ $$
 
 "
 Class {
-	#name : #PiFinderFloat2,
-	#superclass : #PiFinderFloat,
-	#category : #'Pi Finder'
+	#name : 'PiFinderFloat2',
+	#superclass : 'PiFinderFloat',
+	#category : 'Pi Finder',
+	#package : 'Pi Finder'
 }
 
-{ #category : #'instance creation' }
-PiFinderFloat2 class >> runTo: limit [
+{ #category : 'instance creation' }
+PiFinderFloat2 class >> runTo: pairs [
 
 	| pf |
 	pf := self new.
-	limit / 2 timesRepeat: [ pf step ].
+	pairs timesRepeat: [ pf step ].
 	^ pf pi
 ]
 
-{ #category : #stepping }
+{ #category : 'stepping' }
 PiFinderFloat2 >> step [
 	"Compute a new term and accumulate it into currSum."
 
